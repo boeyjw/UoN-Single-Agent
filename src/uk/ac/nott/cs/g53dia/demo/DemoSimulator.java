@@ -1,5 +1,6 @@
 package uk.ac.nott.cs.g53dia.demo;
 import uk.ac.nott.cs.g53dia.library.*;
+import uk.ac.nott.cs.g53dia.boeyjw.DemoTanker;
 import java.util.Random;
 
 /**
@@ -57,7 +58,8 @@ public class DemoSimulator {
                 act.execute(env, tank);
 	    } catch (OutOfFuelException ofe) {
                 System.err.println(ofe.getMessage());
-		System.exit(-1);
+//		System.exit(-1);
+                break;
             } catch (ActionFailedException afe) {
                 System.err.println(afe.getMessage());
             }
