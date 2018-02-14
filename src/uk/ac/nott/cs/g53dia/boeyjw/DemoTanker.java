@@ -2,9 +2,7 @@ package uk.ac.nott.cs.g53dia.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.*;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 import static uk.ac.nott.cs.g53dia.library.MoveAction.NORTH;
 
@@ -20,21 +18,29 @@ import static uk.ac.nott.cs.g53dia.library.MoveAction.NORTH;
  * of this file, and for a DISCLAIMER OF ALL WARRANTIES.
  */
 public class DemoTanker extends Tanker {
-	private Stack<Coordinates> stations;
-	private Stack<Coordinates> well;
-	private Stack<Coordinates> fuel;
-    private Coordinates persistentMove;
-
+    private Queue<Point> fuel, well;
+    private Stack<Station> station;
+    private int lastDir;
+    private int goDir;
+    private Point lockon;
+    private Point stationLockon;
+    private boolean mutex_lockon;
+    private int gotoStationAttempt;
     public DemoTanker() {
         this(new Random());
     }
 
     public DemoTanker(Random r) {
 	    this.r = r;
-	    stations = new Stack<>();
-	    well = new Stack<>();
-	    fuel = new Stack<>();
-	    persistentMove = new Coordinates();
+        fuel = new ArrayDeque<>();
+        well = new ArrayDeque<>();
+        station = new Stack<>();
+        lastDir = MoveAction.NORTH;
+        goDir = lastDir % 7;
+        lockon = null;
+        stationLockon = null;
+        gotoStationAttempt = 0;
+        mutex_lockon = false;
     }
 
     /*
@@ -44,58 +50,85 @@ public class DemoTanker extends Tanker {
      * point it returns to a fuel pump to refuel.
      */
     public Action senseAndAct(Cell[][] view, long timestep) {
-        storePointOfInterest(view);
-        if((getFuelLevel() <= MAX_FUEL/2)) {
-            if(!(getCurrentCell(view) instanceof FuelPump)) {
-                if(fuel.isEmpty() || fuel.peek().getX() == 0 && fuel.peek().getY() == 0)
-                    return new MoveTowardsAction(FUEL_PUMP_LOCATION);
-                else {
-                    persistentMove.modifyCoordinates(fuel.peek().getX(), fuel.peek().getY());
-                    return new MoveTowardsAction(view[persistentMove.getX()][persistentMove.getY()].getPoint());
+        scanView(view);
+        if(getFuelLevel() < 52) {
+            if(getCurrentCell(view) instanceof FuelPump) {
+                lastDir = goDir;
+                if(lastDir == 0)
+                    goDir = 7;
+                else
+                    goDir = (lastDir * 2) % 7;
+                lockon = null;
+                fuel.clear();
+                return new RefuelAction();
+            }
+            else {
+                if(lockon == null || (!lockon.equals(fuel.peek()) && !lockon.equals(FUEL_PUMP_LOCATION)))
+                    lockon = fuel.isEmpty() ? FUEL_PUMP_LOCATION : fuel.peek();
+                System.out.println("Moving to refuel @ " + lockon.toString());
+                return new MoveTowardsAction(lockon);
+            }
+        }
+        else if(getWasteLevel() < MAX_WASTE * 0.9 && !station.isEmpty()) {
+            System.out.println("Move to station @ " + station.peek().toString());
+            if(getCurrentCell(view) instanceof Station && ((Station) getCurrentCell(view)).getTask() != null && getCurrentCell(view).equals(station.peek())) {
+                station.pop();
+                return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
+            }
+            else if(!station.isEmpty()) {
+                if(stationLockon != null && stationLockon.equals(station.peek().getPoint())) {
+                    gotoStationAttempt++;
                 }
+                else {
+                    gotoStationAttempt = 0;
+                    stationLockon = station.peek().getPoint();
+                }
+                if(gotoStationAttempt > 5) {
+                    station.pop();
+                    gotoStationAttempt = 0;
+                }
+                return new MoveTowardsAction(stationLockon);
+            }
+        }
+        else if(getWasteLevel() > MAX_WASTE * 0.9 && !well.isEmpty()) {
+            if(lockon == null || !lockon.equals(well.peek()))
+                lockon = well.peek();
+            System.out.println("Move to well @ " + lockon.toString());
+            if(getCurrentCell(view) instanceof Well) {
+                well.clear();
+                station.empty();
+                lockon = null;
+                return new DisposeWasteAction();
             }
             else
-                return new RefuelAction();
+                return new MoveTowardsAction(lockon);
         }
-        else {
-            if(getWasteLevel() < MAX_WASTE / 4 && !stations.isEmpty())
-                persistentMove.modifyCoordinates(stations.peek().getX(), stations.peek().getY());
-            else if(!well.isEmpty())
-                persistentMove.modifyCoordinates(well.peek().getX(), well.peek().getY());
-            if(getWasteLevel() < MAX_WASTE / 4 && !stations.isEmpty() && persistentMove.isValidCoordinate()) {
-                if(getCurrentCell(view) instanceof Station) {
-                    Task t = ((Station) getCurrentCell(view)).getTask();
-                    if(!(t == null))
-                        return new LoadWasteAction(t);
-                }
-                else
-                    return new MoveTowardsAction(view[persistentMove.getX()][persistentMove.getY()].getPoint());
-            }
-            else if(getWasteLevel() > MAX_WASTE / 4 && !well.isEmpty() && persistentMove.isValidCoordinate()) {
-                if(getCurrentCell(view) instanceof Well) {
-                    return new DisposeWasteAction();
-                }
-                else
-                    return new MoveTowardsAction(view[persistentMove.getX()][persistentMove.getY()].getPoint());
-            }
-            return new MoveAction(MoveAction.NORTH);
+        else if(getWasteLevel() > MAX_WASTE / 2 && getCurrentCell(view) instanceof Well) {
+            System.out.println("Random dump @ " + getCurrentCell(view).toString());
+            return new DisposeWasteAction();
         }
+        else if(getWasteLevel() < MAX_WASTE && getCurrentCell(view) instanceof Station && ((Station) getCurrentCell(view)).getTask() != null) {
+            System.out.println("Random load @ " + getCurrentCell(view).toString());
+            return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
+        }
+        System.out.println("Random walk: " + goDir);
+        return new MoveAction(goDir);
     }
 
-    private void storePointOfInterest(Cell[][] view) {
-        stations.empty();
-        well.empty();
-        fuel.empty();
-        for(int r = 0; r < view.length; r++) {
-            for(int c = 0; c < view.length; c++) {
-                if(view[r][c] instanceof Station) {
-                    stations.push(new Coordinates(r, c));
+    private void scanView(Cell[][] view) {
+        for(int x = 0; x < view.length; x++) {
+            for(int y = 0; y < view.length; y++) {
+                if(view[x][y] instanceof FuelPump) {
+                    fuel.add(view[x][y].getPoint());
                 }
-                else if(view[r][c] instanceof Well) {
-                    well.push(new Coordinates(r, c));
+                else if(view[x][y] instanceof Station && ((Station) view[x][y]).getTask() != null) {
+                    if(station.isEmpty())
+                        station.push((Station) view[x][y]);
+                    else if(station.search((Station) view[x][y]) == -1)
+                        station.push((Station) view[x][y]);
                 }
-                else if(view[r][c] instanceof FuelPump) {
-                    fuel.push(new Coordinates(r, c));
+                else if(view[x][y] instanceof Well) {
+                    well.add(view[x][y].getPoint());
                 }
             }
         }

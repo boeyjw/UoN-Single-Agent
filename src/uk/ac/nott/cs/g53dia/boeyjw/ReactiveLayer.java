@@ -1,5 +1,4 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
-public abstract class Memory {
-
+public abstract class ReactiveLayer {
 }
