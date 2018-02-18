@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
+package uk.ac.nott.cs.g53dia.boeyjw.boeyjwhold;
 
 public class Coordinates {
     private int x;

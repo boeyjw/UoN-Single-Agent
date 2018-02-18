@@ -1,34 +1,38 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
+import com.sun.istack.internal.NotNull;
+import uk.ac.nott.cs.g53dia.boeyjw.Entity;
+import uk.ac.nott.cs.g53dia.boeyjw.boeyjwhold.Reflex;
 import uk.ac.nott.cs.g53dia.library.MoveAction;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Random;
 import java.util.Stack;
 
-public class Explorer implements ReactiveLayer {
+public class Explorer {
     private HashMap<Integer, Integer> crossDirectionMovement;
+    private int direction;
 
-    public Explorer() {
+    public Explorer(@NotNull Random r) {
         crossDirectionMovement = new HashMap<>();
         init();
+        direction = r.nextInt(Threshold.TOTAL_DIRECTION_BOUND.getThresh());
     }
 
     private void init() {
-        crossDirectionMovement.put(MoveAction.NORTH, MoveAction.SOUTH);
+        crossDirectionMovement.put(MoveAction.NORTH, MoveAction.EAST);
         crossDirectionMovement.put(MoveAction.EAST, MoveAction.WEST);
-        crossDirectionMovement.put(MoveAction.WEST, MoveAction.EAST);
-        crossDirectionMovement.put(MoveAction.SOUTH, MoveAction.NORTH);
+        crossDirectionMovement.put(MoveAction.WEST, MoveAction.SOUTH);
+        crossDirectionMovement.put(MoveAction.SOUTH, MoveAction.NORTHEAST);
         crossDirectionMovement.put(MoveAction.NORTHEAST, MoveAction.NORTHWEST);
-        crossDirectionMovement.put(MoveAction.NORTHWEST, MoveAction.NORTHEAST);
-    }
-    @Override
-    public Stack<Entity> decision(ArrayList<Entity> entities) {
-        return null;
+        crossDirectionMovement.put(MoveAction.NORTHWEST, MoveAction.SOUTHEAST);
+        crossDirectionMovement.put(MoveAction.SOUTHEAST, MoveAction.SOUTHWEST);
+        crossDirectionMovement.put(MoveAction.SOUTHWEST, MoveAction.NORTH);
     }
 
-    @Override
-    public String toString() {
-        return null;
+    public int getDirection() {
+        direction = crossDirectionMovement.get(direction);
+        return direction;
     }
 }
