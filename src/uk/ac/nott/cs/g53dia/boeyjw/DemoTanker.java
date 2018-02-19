@@ -1,10 +1,9 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
+import uk.ac.nott.cs.g53dia.boeyjw.Entity;
 import uk.ac.nott.cs.g53dia.library.*;
 
 import java.util.*;
-
-import static uk.ac.nott.cs.g53dia.library.MoveAction.NORTH;
 
 /**
  * A simple example Tanker
@@ -20,7 +19,6 @@ import static uk.ac.nott.cs.g53dia.library.MoveAction.NORTH;
 public class DemoTanker extends Tanker {
     private Hashtable<String, Stack<Entity>> entities;
     private Stack<Entity> fuelpump, well, station;
-    private TankerManager tm;
     private LinkedList<Entity> moves;
 
     public DemoTanker() {
@@ -33,7 +31,6 @@ public class DemoTanker extends Tanker {
         fuelpump = new Stack<>();
         well = new Stack<>();
         station = new Stack<>();
-        tm = new TankerManager(r);
         moves = new LinkedList<>();
     }
 
@@ -43,18 +40,9 @@ public class DemoTanker extends Tanker {
      * tanker randomly until the fuel tank is half full, at which
      * point it returns to a fuel pump to refuel.
      */
+    // TODO: Means-End Deliberation + Reactive to handle exceptions
     public Action senseAndAct(Cell[][] view, long timestep) {
-        if(tm.requiresPlanning() || moves.getFirst().getEntityType() == Entity.EXPLORER) {
-            spiralScanView(view, timestep);
-            moves = tm.getMoves(this, entities);
-            cleanup();
-        }
-        else if(getCurrentCell(view).equals(moves.getFirst().getEntity())) {
-            moves.pollFirst();
-        }
-
-        return moves.getFirst().getEntityType() == Entity.EXPLORER ? new MoveAction(moves.getFirst().getExploringDirection()) :
-                new MoveTowardsAction(moves.getFirst().getPoint());
+        return null;
     }
 
     /**

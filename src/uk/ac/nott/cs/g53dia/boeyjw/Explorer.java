@@ -1,8 +1,5 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
-import com.sun.istack.internal.NotNull;
-import uk.ac.nott.cs.g53dia.boeyjw.Entity;
-import uk.ac.nott.cs.g53dia.boeyjw.boeyjwhold.Reflex;
 import uk.ac.nott.cs.g53dia.library.MoveAction;
 
 import java.util.HashMap;
@@ -14,7 +11,7 @@ public class Explorer {
     private HashMap<Integer, Integer> crossDirectionMovement;
     private int direction;
 
-    public Explorer(@NotNull Random r) {
+    public Explorer(Random r) {
         crossDirectionMovement = new HashMap<>();
         init();
         direction = r.nextInt(Threshold.TOTAL_DIRECTION_BOUND.getThresh());
