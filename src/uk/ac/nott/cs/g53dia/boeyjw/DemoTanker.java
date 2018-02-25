@@ -1,6 +1,5 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
-import uk.ac.nott.cs.g53dia.boeyjw.Entity;
 import uk.ac.nott.cs.g53dia.library.*;
 
 import java.util.*;
@@ -17,9 +16,9 @@ import java.util.*;
  * of this file, and for a DISCLAIMER OF ALL WARRANTIES.
  */
 public class DemoTanker extends Tanker {
-    private Hashtable<String, Stack<Entity>> entities;
-    private Stack<Entity> fuelpump, well, station;
-    private LinkedList<Entity> moves;
+    private Hashtable<String, List<CoreEntity>> entities;
+    private List<CoreEntity> fuelpump, well, station, taskedStation;
+    private List<Cell> moves;
 
     public DemoTanker() {
         this(new Random());
@@ -28,9 +27,10 @@ public class DemoTanker extends Tanker {
     public DemoTanker(Random r) {
 	    this.r = r;
 	    entities = new Hashtable<>(3);
-        fuelpump = new Stack<>();
-        well = new Stack<>();
-        station = new Stack<>();
+        fuelpump = new ArrayList<>();
+        well = new ArrayList<>();
+        station = new ArrayList<>();
+        taskedStation = new ArrayList<>();
         moves = new LinkedList<>();
     }
 
@@ -68,26 +68,26 @@ public class DemoTanker extends Tanker {
         while(c < Threshold.TOTAL_VIEW_RANGE.getTotalViewGridLength()) {
             // Top row values
             for(i = fc; i <= lc; i++) {
-                binEntitiesToStack(view[fr][i], timestep);
+                binEntitiesToStack(view[fr][i], fr, i, timestep);
                 c++;
             }
             fr++;
             // Right column values
             for(i = fr; i <= lr; i++) {
-                binEntitiesToStack(view[i][lc], timestep);
+                binEntitiesToStack(view[i][lc], i, lc, timestep);
                 c++;
             }
             lc--;
             if(fr < lr) { // Bottom row values
                 for(i = lc; i >= fc; i--) {
-                    binEntitiesToStack(view[lr][i], timestep);
+                    binEntitiesToStack(view[lr][i], lr, i, timestep);
                     c++;
                 }
                 lr--;
             }
             if(fc < lc) { // Left column values
                 for(i = lr; i >= fr; i--) {
-                    binEntitiesToStack(view[i][fc], timestep);
+                    binEntitiesToStack(view[i][fc], i, fc, timestep);
                     c++;
                 }
                 fc++;
@@ -98,6 +98,7 @@ public class DemoTanker extends Tanker {
         entities.put("fuel", fuelpump);
         entities.put("well", well);
         entities.put("station", station);
+        entities.put("taskedStation", taskedStation);
     }
 
     /**
@@ -105,19 +106,23 @@ public class DemoTanker extends Tanker {
      * @param entity The entity viewed by the Tanker's view
      * @param timestep The current timestep in the simulation
      */
-    private void binEntitiesToStack(Object entity, long timestep) {
-        if(entity instanceof FuelPump)
-            fuelpump.push(new Entity(entity, timestep));
-        else if(entity instanceof Well)
-            well.push(new Entity(entity, timestep));
-        else if(entity instanceof Station)
-            station.push(new Entity(entity, timestep));
+    private void binEntitiesToStack(Cell entity, int x, int y, long timestep) {
+        if(EntityChecker.isFuelPump(entity))
+            fuelpump.add(new EntityNode(entity, x, y, timestep));
+        else if(EntityChecker.isStation(entity)) {
+            station.add(new EntityNode(entity, x, y, timestep));
+            if(((Station) entity).getTask() != null)
+                taskedStation.add(new EntityNode(entity, x, y, timestep));
+        }
+        else if(EntityChecker.isWell(entity))
+            well.add(new EntityNode(entity, x, y, timestep));
     }
 
     private void cleanup() {
         fuelpump.clear();
         well.clear();
         station.clear();
+        taskedStation.clear();
         entities.clear();
     }
 }

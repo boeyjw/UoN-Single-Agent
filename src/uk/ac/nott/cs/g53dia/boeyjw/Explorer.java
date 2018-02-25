@@ -7,7 +7,10 @@ import java.util.Hashtable;
 import java.util.Random;
 import java.util.Stack;
 
-public class Explorer {
+/**
+ * Handles exploration of the tanker
+ */
+public class Explorer extends Mapper {
     private HashMap<Integer, Integer> crossDirectionMovement;
     private int direction;
 
@@ -17,6 +20,10 @@ public class Explorer {
         direction = r.nextInt(Threshold.TOTAL_DIRECTION_BOUND.getThresh());
     }
 
+    /**
+     * HashTable of cross directions to explore.
+     * If the entire HasThTable is traversed, the tanker essentially moved all 8 directions
+     */
     private void init() {
         crossDirectionMovement.put(MoveAction.NORTH, MoveAction.EAST);
         crossDirectionMovement.put(MoveAction.EAST, MoveAction.WEST);
@@ -29,7 +36,16 @@ public class Explorer {
     }
 
     public int getDirection() {
-        direction = crossDirectionMovement.get(direction);
         return direction;
+    }
+
+    public void updateDirection() {
+        direction = crossDirectionMovement.get(direction);
+    }
+
+    public int getAndUpdateDirection() {
+        int dir = direction;
+        updateDirection();
+        return dir;
     }
 }

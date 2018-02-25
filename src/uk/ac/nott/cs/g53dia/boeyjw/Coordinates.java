@@ -2,7 +2,7 @@ package uk.ac.nott.cs.g53dia.boeyjw;
 
 import java.util.ArrayDeque;
 
-public class Coordinates extends TwoTuple {
+public class Coordinates extends TwoNumberTuple {
     public Coordinates(int x, int y) {
         super(x, y);
     }
@@ -18,27 +18,13 @@ public class Coordinates extends TwoTuple {
         return Calculation.modifiedManhattenDistance(this, target);
     }
 
-    public TwoTuple manhattenAbsolute(Coordinates target) {
-        return new TwoTuple(Math.abs(target.getX() - this.getX()), Math.abs(target.getY() - this.getY()));
+    public TwoNumberTuple manhattenAbsolute(Coordinates target) {
+        return new TwoNumberTuple(Math.abs(target.getValue(0) - this.getValue(0)),
+                Math.abs(target.getValue(1) - this.getValue(1)));
     }
 
-    public ArrayDeque<Integer> planMoveTo(Coordinates source, Coordinates target) {
-        ArrayDeque<Integer> moves = new ArrayDeque<>();
-        TwoTuple preManhatten = source.manhattenAbsolute(target);
-
-        int diagonal = preManhatten.getMin();
-        int straight = preManhatten.getMax() - preManhatten.getMin();
-        int bearing = Calculation.targetBearing(source, target);
-
-        if(diagonal != 0) {
-            moves.add(Calculation.targetBearing(source, target));
-            moves.add(diagonal);
-        }
-        if(straight != 0) {
-            moves.add(Calculation.targetBearing((Coordinates) source.simpleOperation(diagonal, null, "+"), target));
-            moves.add(straight);
-        }
-
-        return moves;
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }
