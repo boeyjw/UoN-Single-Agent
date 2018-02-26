@@ -1,6 +1,7 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
+import uk.ac.nott.cs.g53dia.library.Point;
 import uk.ac.nott.cs.g53dia.library.Station;
 
 public abstract class CoreEntity {
@@ -9,17 +10,19 @@ public abstract class CoreEntity {
     private Coordinates coord;
     private long lastVisited;
     private boolean hasTask;
+    private Point position;
 
-    CoreEntity(Cell entity, Coordinates coord, long firstVisit) {
+    CoreEntity(Cell entity, Coordinates coord, long firstVisit, Point position) {
         this.entity = entity;
         this.entityHash = entity.getPoint().hashCode();
         this.coord = coord;
         this.lastVisited = firstVisit;
         this.hasTask = EntityChecker.isStation(entity) && ((Station) entity).getTask() != null;
+        this.position = position;
     }
 
     CoreEntity(Cell entity, int x, int y, long firstVisit) {
-        this(entity, new Coordinates(x, y), firstVisit);
+        this(entity, new Coordinates(x, y), firstVisit, null);
     }
 
     public Cell getEntity() {
@@ -44,5 +47,13 @@ public abstract class CoreEntity {
 
     public Coordinates getCoord() {
         return coord;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
     }
 }

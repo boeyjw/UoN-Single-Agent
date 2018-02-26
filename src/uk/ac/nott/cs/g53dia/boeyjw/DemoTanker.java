@@ -16,9 +16,17 @@ import java.util.*;
  * of this file, and for a DISCLAIMER OF ALL WARRANTIES.
  */
 public class DemoTanker extends Tanker {
+    public static boolean doScan = true;
+
     private Hashtable<String, List<CoreEntity>> entities;
+    private MapBuilder mapper;
     private List<CoreEntity> fuelpump, well, station, taskedStation;
-    private List<Cell> moves;
+    private Deque<Cell> moves;
+
+    private Cell lastFuelPump, lastWell;
+    private Explorer explorer;
+    private Replanner planner;
+    private int explorerDirection;
 
     public DemoTanker() {
         this(new Random());
@@ -26,22 +34,75 @@ public class DemoTanker extends Tanker {
 
     public DemoTanker(Random r) {
 	    this.r = r;
-	    entities = new Hashtable<>(3);
+	    entities = new Hashtable<>(5);
+	    mapper = new MapBuilder();
+	    planner = new Replanner();
+
         fuelpump = new ArrayList<>();
         well = new ArrayList<>();
         station = new ArrayList<>();
         taskedStation = new ArrayList<>();
-        moves = new LinkedList<>();
+        moves = new ArrayDeque<>();
+
+        lastFuelPump = null;
+        lastWell = null;
+
+        explorer = new Explorer(this.r);
+        explorerDirection = explorer.getAndUpdateDirection();
     }
 
-    /*
-     * The following is a simple demonstration of how to write a
-     * tanker. The code below is very stupid and simply moves the
-     * tanker randomly until the fuel tank is half full, at which
-     * point it returns to a fuel pump to refuel.
-     */
-    // TODO: Means-End Deliberation + Reactive to handle exceptions
     public Action senseAndAct(Cell[][] view, long timestep) {
+        int mapperStatus = 0;
+        // Add actual positions of fuel pumps, wells and stations to form an entity map
+        if(mapper.addToMap(getCurrentCell(view))) {
+            mapperStatus = mapper.addPermanentPositions(new EntityNode(getCurrentCell(view), new Coordinates(VIEW_RANGE, VIEW_RANGE), timestep, getPosition()));
+            System.out.println(mapperStatus + "\n" + mapper.toString());
+        }
+
+        if(!moves.isEmpty() && getCurrentCell(view).equals(moves.peek())) {
+            Cell c = moves.pop();
+            if(EntityChecker.isWell(c)) {
+                return new DisposeWasteAction();
+            }
+            else if(EntityChecker.isFuelPump(c)) {
+                return new RefuelAction();
+            }
+            else if(EntityChecker.isStation(c) && EntityChecker.hasTaskStation(getCurrentCell(view))) {
+                return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
+            }
+        }
+
+        if(EntityChecker.isFuelPump(getCurrentCell(view)))
+            lastFuelPump = getCurrentCell(view);
+        else if(EntityChecker.isWell(getCurrentCell(view)))
+            lastWell = getCurrentCell(view);
+
+        doScan = moves.isEmpty();
+        if(doScan || Explorer.explorerMode) {
+            spiralScanView(view, timestep);
+            if(moves.isEmpty()) {
+                if(Threshold.LOWEST_FUEL.hitThresh(getFuelLevel()))
+                    moves.push(lastFuelPump);
+                Explorer.explorerMode = true;
+                explorer.setStartExplorerTimestep(timestep);
+            }
+            else if(Explorer.explorerMode && !moves.isEmpty()) {
+                explorerDirection = explorer.getAndUpdateDirection();
+            }
+            if(!taskedStation.isEmpty() && Explorer.explorerMode) {
+                moves.add(taskedStation.remove(0).getEntity());
+            }
+
+            cleanup();
+        }
+
+        if(!moves.isEmpty())
+            return new MoveTowardsAction(moves.peek().getPoint());
+        else if(Explorer.explorerMode) {
+            return new MoveAction(explorerDirection);
+        }
+
+        // Should never reach here
         return null;
     }
 

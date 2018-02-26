@@ -11,13 +11,16 @@ import java.util.Stack;
  * Handles exploration of the tanker
  */
 public class Explorer extends Mapper {
+    public static boolean explorerMode = false;
     private HashMap<Integer, Integer> crossDirectionMovement;
     private int direction;
+    private long startExplorerTimestep;
 
     public Explorer(Random r) {
         crossDirectionMovement = new HashMap<>();
         init();
         direction = r.nextInt(Threshold.TOTAL_DIRECTION_BOUND.getThresh());
+        startExplorerTimestep = Integer.MIN_VALUE;
     }
 
     /**
@@ -47,5 +50,13 @@ public class Explorer extends Mapper {
         int dir = direction;
         updateDirection();
         return dir;
+    }
+
+    public long getStartExplorerTimestep() {
+        return startExplorerTimestep;
+    }
+
+    public void setStartExplorerTimestep(long startExplorerTimestep) {
+        this.startExplorerTimestep = startExplorerTimestep;
     }
 }
