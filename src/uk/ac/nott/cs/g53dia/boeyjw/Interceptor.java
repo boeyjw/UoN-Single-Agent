@@ -3,21 +3,52 @@ package uk.ac.nott.cs.g53dia.boeyjw;
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.Tanker;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Interceptor extends Mapper {
-    private Cell lastClosestWell;
-    private Cell lastClosestFuelPump;
+    private CoreEntity lastClosestWellSeen;
+    private CoreEntity lastClosestFuelPumpSeen;
 
     public Interceptor() {
-        lastClosestWell = null;
-        lastClosestFuelPump = null;
+        lastClosestWellSeen = null;
+        lastClosestFuelPumpSeen = null;
     }
 
-    public boolean intercept(List<Cell> moves, Tanker t) {
-        return false;
+    public void intercept(Deque<Cell> moves, Tanker t, long timestep) {
+        boolean needDispose = false;
+        boolean needRefuel = false;
+        if(!super.acceptableWasteLevel(t.getWasteLevel())) {
+            if(!moves.isEmpty() && !EntityChecker.isWell(moves.peekFirst())) {
+                needDispose = true;
+            }
+            else if(moves.isEmpty()) {
+                needDispose = true;
+            }
+        }
+        if(!super.acceptableFuelLevel(t.getFuelLevel(), Math.toIntExact(timestep - lastClosestFuelPumpSeen.getLastVisited()) + Tanker.VIEW_RANGE)) {
+            if(!moves.isEmpty() && !EntityChecker.isFuelPump(moves.peekFirst())) {
+                needRefuel = true;
+            }
+            else if(moves.isEmpty()) {
+                needRefuel = true;
+            }
+        }
+        if(needDispose) {
+            moves.push(lastClosestWellSeen.getEntity());
+        }
+        if(needRefuel) {
+            moves.push(lastClosestFuelPumpSeen.getEntity());
+        }
+        if(needDispose || needRefuel)
+            System.out.println("INTERCEPTED");
+    }
+
+    public void setLastClosestSeen(CoreEntity well, CoreEntity fuelPump) {
+        if(well != null) {
+            lastClosestWellSeen = well;
+        }
+        if(fuelPump != null) {
+            lastClosestFuelPumpSeen = fuelPump;
+        }
     }
 }

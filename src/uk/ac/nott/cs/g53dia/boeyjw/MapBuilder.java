@@ -19,6 +19,11 @@ public class MapBuilder extends Mapper {
         globalmap.put(EntityChecker.STATION, new ArrayList<>());
     }
 
+
+    public Hashtable<Integer, List<CoreEntity>> getGlobalmap() {
+        return globalmap;
+    }
+
     public int addPermanentPositions(CoreEntity entity) {
         int entityType = EntityChecker.getEntityType(entity.getEntity());
         if(entityType == EntityChecker.EMPTYCELL)

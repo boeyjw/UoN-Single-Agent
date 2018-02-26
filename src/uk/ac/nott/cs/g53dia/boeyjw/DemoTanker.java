@@ -22,12 +22,16 @@ public class DemoTanker extends Tanker {
     private MapBuilder mapper;
     private List<CoreEntity> fuelpump, well, station, taskedStation;
     private Deque<Cell> moves;
+    private Deque<EntityNode> plannedMoves;
+    private Deque<Cell> history;
 
     private Cell lastFuelPump, lastWell;
     private Explorer explorer;
-    private Replanner planner;
+    private Planner planner;
+    private Interceptor interceptor;
     private int explorerDirection;
 
+    private Log l;
     public DemoTanker() {
         this(new Random());
     }
@@ -36,19 +40,24 @@ public class DemoTanker extends Tanker {
 	    this.r = r;
 	    entities = new Hashtable<>(5);
 	    mapper = new MapBuilder();
-	    planner = new Replanner();
+	    planner = new Planner();
+	    interceptor = new Interceptor();
 
         fuelpump = new ArrayList<>();
         well = new ArrayList<>();
         station = new ArrayList<>();
         taskedStation = new ArrayList<>();
         moves = new ArrayDeque<>();
+        plannedMoves = new ArrayDeque<>();
+        history = new ArrayDeque<>();
 
         lastFuelPump = null;
         lastWell = null;
 
         explorer = new Explorer(this.r);
         explorerDirection = explorer.getAndUpdateDirection();
+
+        l = new Log(true);
     }
 
     public Action senseAndAct(Cell[][] view, long timestep) {
@@ -56,49 +65,75 @@ public class DemoTanker extends Tanker {
         // Add actual positions of fuel pumps, wells and stations to form an entity map
         if(mapper.addToMap(getCurrentCell(view))) {
             mapperStatus = mapper.addPermanentPositions(new EntityNode(getCurrentCell(view), new Coordinates(VIEW_RANGE, VIEW_RANGE), timestep, getPosition()));
-            System.out.println(mapperStatus + "\n" + mapper.toString());
         }
+        spiralScanView(view, timestep);
+        interceptor.setLastClosestSeen(entities.get("well").isEmpty() ? null : entities.get("well").get(entities.get("well").size() - 1),
+                entities.get("fuel").isEmpty() ? null : entities.get("fuel").get(entities.get("fuel").size() - 1));
 
-        if(!moves.isEmpty() && getCurrentCell(view).equals(moves.peek())) {
-            Cell c = moves.pop();
-            if(EntityChecker.isWell(c)) {
-                return new DisposeWasteAction();
+        if(moves.isEmpty()) {
+            if(!EntityChecker.isEmptyCell(getCurrentCell(view))) {
+                plannedMoves = planner.plan(entities, getFuelLevel(), new EntityNode(getCurrentCell(view), new Coordinates(VIEW_RANGE, VIEW_RANGE), timestep, getPosition()));
             }
-            else if(EntityChecker.isFuelPump(c)) {
-                return new RefuelAction();
+            if(plannedMoves.isEmpty()) {
+                if(!Explorer.explorerMode) {
+                    l.d("EXPLORE");
+                    Explorer.explorerMode = true;
+                    explorer.setStartExplorerTimestep(timestep);
+                }
             }
-            else if(EntityChecker.isStation(c) && EntityChecker.hasTaskStation(getCurrentCell(view))) {
-                return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
-            }
-        }
-
-        if(EntityChecker.isFuelPump(getCurrentCell(view)))
-            lastFuelPump = getCurrentCell(view);
-        else if(EntityChecker.isWell(getCurrentCell(view)))
-            lastWell = getCurrentCell(view);
-
-        doScan = moves.isEmpty();
-        if(doScan || Explorer.explorerMode) {
-            spiralScanView(view, timestep);
-            if(moves.isEmpty()) {
-                if(Threshold.LOWEST_FUEL.hitThresh(getFuelLevel()))
-                    moves.push(lastFuelPump);
-                Explorer.explorerMode = true;
-                explorer.setStartExplorerTimestep(timestep);
-            }
-            else if(Explorer.explorerMode && !moves.isEmpty()) {
+            else {
+                l.d("PLANNED");
+                Explorer.explorerMode = false;
+                for(EntityNode e : plannedMoves) {
+                    moves.add(e.getEntity());
+                }
+                plannedMoves.clear();
                 explorerDirection = explorer.getAndUpdateDirection();
             }
-            if(!taskedStation.isEmpty() && Explorer.explorerMode) {
-                moves.add(taskedStation.remove(0).getEntity());
+        }
+        else {
+            Cell c = moves.peekFirst();
+            if(getCurrentCell(view).equals(c)) {
+                l.d("Current: " + getCurrentCell(view).hashCode());
+                if(EntityChecker.isFuelPump(c)) {
+                    if(Explorer.explorerMode) {
+                        explorerDirection = explorer.getAndUpdateDirection();
+                    }
+                    history.add(moves.removeFirst());
+                    l.d("MOVES: REFUEL" + " => " + c.getClass() + " @ " + c.hashCode());
+                    return new RefuelAction();
+                }
+                else if(EntityChecker.isWell(c)) {
+                    history.add(moves.removeFirst());
+                    l.d("MOVES: DUMP" + " => " + c.getClass() + " @ " + c.hashCode());
+                    return new DisposeWasteAction();
+                }
+                else if(EntityChecker.isStation(c)) {
+                    history.add(moves.removeFirst());
+                    if(((Station) getCurrentCell(view)).getTask() != null) {
+                        l.d("MOVES: LOAD" + " => " + c.getClass() + " @ " + c.hashCode());
+                        return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
+                    }
+                }
+                else { //Empty cell
+                    l.d("MOVES: EMPTY CELL" + " => " + c.getClass() + " @ " + c.hashCode());
+                    history.add(moves.removeFirst());
+                }
             }
-
-            cleanup();
         }
 
-        if(!moves.isEmpty())
+        interceptor.intercept(moves, this, timestep);
+        explorer.getPassbyTask(moves, getWasteLevel(), taskedStation);
+        cleanup();
+        for(Cell c : moves) {
+            l.dc(c.getClass().getName() + " @ " + c.hashCode() + ", ");
+        }
+        l.d("");
+
+        if(!moves.isEmpty()) {
             return new MoveTowardsAction(moves.peek().getPoint());
-        else if(Explorer.explorerMode) {
+        }
+        else if(Explorer.explorerMode && plannedMoves.isEmpty()) {
             return new MoveAction(explorerDirection);
         }
 
@@ -123,8 +158,8 @@ public class DemoTanker extends Tanker {
          */
         int c = 0;
         fr = fc = 0;
-        lc = Threshold.TOTAL_VIEW_RANGE.getThresh() - 1;
-        lr = Threshold.TOTAL_VIEW_RANGE.getThresh() - 1;
+        lc = Threshold.TOTAL_VIEW_RANGE.getThreshold() - 1;
+        lr = Threshold.TOTAL_VIEW_RANGE.getThreshold() - 1;
 
         while(c < Threshold.TOTAL_VIEW_RANGE.getTotalViewGridLength()) {
             // Top row values

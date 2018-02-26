@@ -7,10 +7,10 @@ import uk.ac.nott.cs.g53dia.library.Tanker;
  */
 public enum Threshold {
     LOWEST_FUEL((int) Math.floor(Tanker.MAX_FUEL * 0.5) + 2, false),
-    HIGHEST_WASTE((int) Math.floor(Tanker.MAX_WASTE * 0.9), true),
+    HIGHEST_WASTE((int) Math.floor(Tanker.MAX_WASTE * 0.85), true),
     TOTAL_VIEW_RANGE(Tanker.VIEW_RANGE * 2 + 1, false),
     TOTAL_DIRECTION_BOUND(8, true),
-    REFUEL_ERROR_MARGIN(3, true);
+    REFUEL_ERROR_MARGIN(5, true);
 
     private final int thresh;
     private final boolean isUpperLimit;
@@ -20,15 +20,15 @@ public enum Threshold {
         this.isUpperLimit = isUpperLimit;
     }
 
-    int getThresh() {
+    int getThreshold() {
         return thresh;
     }
 
     int getTotalViewGridLength() {
-        return TOTAL_VIEW_RANGE.getThresh() * TOTAL_VIEW_RANGE.getThresh();
+        return TOTAL_VIEW_RANGE.getThreshold() * TOTAL_VIEW_RANGE.getThreshold();
     }
 
-    boolean hitThresh(int value) {
+    boolean hitThreshold(int value) {
         return isUpperLimit ? value >= thresh : value <= thresh;
     }
 }

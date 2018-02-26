@@ -4,20 +4,21 @@ import uk.ac.nott.cs.g53dia.library.Cell;
 
 import java.util.*;
 
-public class Replanner extends Mapper {
+public class Planner extends Mapper {
     public static boolean NEED_FUEL = false;
     public static boolean NEED_WELL = false;
     public static boolean NO_PATH_FOUND = false;
 
     private final int MAX_STATION_VISIT;
 
-    Replanner() {
+    Planner() {
         MAX_STATION_VISIT = 3;
     }
 
     public Deque<EntityNode> plan(Hashtable<String, List<CoreEntity>> entities, int currentFuelLevel, EntityNode current) {
         int estFuelLevel = currentFuelLevel;
         int stationVisitCounter = 0;
+        boolean hasPlan = false;
         String nextMove = "";
         Deque<EntityNode> plannedMoves = new ArrayDeque<>();
         List<CoreEntity> taskedStations = entities.get("taskedStation");
@@ -28,7 +29,7 @@ public class Replanner extends Mapper {
 
         while(true) {
             EntityNode currentMove = plannedMoves.peekLast();
-            if(!entities.get("fuel").isEmpty() && super.acceptableFuelLevel(estFuelLevel, getClosestEntityDistanceTo(entities.get("fuel"), currentMove))) {
+            if(!entities.get("fuel").isEmpty() && !super.acceptableFuelLevel(estFuelLevel, super.getClosestEntityDistanceTo(entities.get("fuel"), currentMove))) {
                 nextMove = "fuel";
             }
             else if(!entities.get("well").isEmpty() && stationVisitCounter >= MAX_STATION_VISIT) {
@@ -51,10 +52,12 @@ public class Replanner extends Mapper {
                 else {
                     System.out.println("Planning failed");
                     NO_PATH_FOUND = true;
-                    return null;
+                    plannedMoves.clear();
+                    break;
                 }
             }
             else {
+                hasPlan = true;
                 List<EntityNode> gscored_nodes = calculateGscore(nextMove.equalsIgnoreCase("taskedStation") ?
                         taskedStations.iterator() : entities.get(nextMove).iterator(), current);
                 // Has fuel pumps in view and next move is not fuel pump
@@ -86,7 +89,9 @@ public class Replanner extends Mapper {
             }
         }
 
-
+        if(!hasPlan) {
+            plannedMoves.clear();
+        }
         return plannedMoves;
     }
 
@@ -95,7 +100,7 @@ public class Replanner extends Mapper {
         for(int i = 0; i < gscored.size(); i++) {
             feasibleNodes[i] = super.acceptableFuelLevel(estFuelLevel, gscored.get(i).getFuelConsumption()) &&
                     super.acceptableFuelLevel(estFuelLevel - gscored.get(i).getFuelConsumption(),
-                            getClosestEntityDistanceTo(fuelpumps, gscored.get(i)));
+                            super.getClosestEntityDistanceTo(fuelpumps, gscored.get(i)));
         }
 
         return feasibleNodes;
@@ -188,28 +193,6 @@ public class Replanner extends Mapper {
             }
             return true;
         }
-    }
-
-    private int getClosestEntityDistanceTo(List<CoreEntity> desiredEntity, EntityNode current) {
-        if(desiredEntity.isEmpty())
-            return Integer.MIN_VALUE;
-        else if(desiredEntity.size() == 1)
-            return Calculation.modifiedManhattenDistance(current.getCoord(), desiredEntity.get(0).getCoord());
-
-        int min = 0;
-        int argmin = 0;
-        int[] dist = new int[desiredEntity.size()];
-        for(int i = 0; i < desiredEntity.size(); i++) {
-            dist[i] = Calculation.modifiedManhattenDistance(current.getCoord(), desiredEntity.get(i).getCoord());
-            if(i == 0)
-                min = dist[i];
-            else if(dist[i] > min) {
-                argmin = i;
-                min = dist[i];
-            }
-        }
-
-        return dist[argmin];
     }
 
     public Deque<Cell> toCellMoves(Deque<EntityNode> plannedMoves) {

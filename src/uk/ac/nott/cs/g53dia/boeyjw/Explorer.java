@@ -1,11 +1,12 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
+import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.MoveAction;
 
+import java.util.Deque;
 import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.List;
 import java.util.Random;
-import java.util.Stack;
 
 /**
  * Handles exploration of the tanker
@@ -16,10 +17,10 @@ public class Explorer extends Mapper {
     private int direction;
     private long startExplorerTimestep;
 
-    public Explorer(Random r) {
+    Explorer(Random r) {
         crossDirectionMovement = new HashMap<>();
         init();
-        direction = r.nextInt(Threshold.TOTAL_DIRECTION_BOUND.getThresh());
+        direction = r.nextInt(Threshold.TOTAL_DIRECTION_BOUND.getThreshold());
         startExplorerTimestep = Integer.MIN_VALUE;
     }
 
@@ -38,17 +39,9 @@ public class Explorer extends Mapper {
         crossDirectionMovement.put(MoveAction.SOUTHWEST, MoveAction.NORTH);
     }
 
-    public int getDirection() {
-        return direction;
-    }
-
-    public void updateDirection() {
-        direction = crossDirectionMovement.get(direction);
-    }
-
     public int getAndUpdateDirection() {
         int dir = direction;
-        updateDirection();
+        direction = crossDirectionMovement.get(direction);
         return dir;
     }
 
@@ -58,5 +51,11 @@ public class Explorer extends Mapper {
 
     public void setStartExplorerTimestep(long startExplorerTimestep) {
         this.startExplorerTimestep = startExplorerTimestep;
+    }
+
+    public void getPassbyTask(Deque<Cell> moves, int wasteLevel, List<CoreEntity> station) {
+        if(explorerMode && !station.isEmpty() && moves.isEmpty() && super.acceptableWasteLevel(wasteLevel)) {
+            moves.addLast(station.get(0).getEntity());
+        }
     }
 }
