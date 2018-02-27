@@ -9,12 +9,15 @@ public class Interceptor extends Mapper {
     private CoreEntity lastClosestWellSeen;
     private CoreEntity lastClosestFuelPumpSeen;
 
+    private Log l;
+
     public Interceptor() {
         lastClosestWellSeen = null;
         lastClosestFuelPumpSeen = null;
+        l = new Log(true);
     }
 
-    public void intercept(Deque<Cell> moves, Tanker t, long timestep) {
+    public void intercept(Deque<Cell> moves, Tanker t, long timestep, List<CoreEntity> taskedStation) {
         boolean needDispose = false;
         boolean needRefuel = false;
         if(!super.acceptableWasteLevel(t.getWasteLevel())) {
@@ -36,6 +39,19 @@ public class Interceptor extends Mapper {
                 needRefuel = true;
             }
         }
+        if(needDispose || needRefuel && !taskedStation.isEmpty()) {
+            int taskedIndex = getIdenticalStation(taskedStation, moves.peekFirst());
+            l.d("Tasked Index: " + taskedIndex);
+            if(taskedIndex != Integer.MIN_VALUE) {
+                int dist = Tanker.VIEW_RANGE + Math.toIntExact(timestep - (needDispose ? lastClosestWellSeen.getLastVisited() : lastClosestFuelPumpSeen.getLastVisited())) +
+                        Calculation.modifiedManhattenDistance(new Coordinates(Tanker.VIEW_RANGE, Tanker.VIEW_RANGE), taskedStation.get(taskedIndex).getCoord());
+                l.d("Distance: " + dist);
+                if(!super.acceptableFuelLevel(100 - dist, dist)) {
+                    moves.removeFirst();
+                }
+            }
+            l.d("INTERCEPTED");
+        }
         if(needDispose) {
             moves.push(lastClosestWellSeen.getEntity());
         }
@@ -44,9 +60,22 @@ public class Interceptor extends Mapper {
         }
         if(moves.isEmpty())
             Explorer.explorerMode = true;
-        if(needDispose || needRefuel)
-            System.out.println("INTERCEPTED");
     }
+
+    private int getIdenticalStation(List<CoreEntity> taskedStation, Cell station) {
+        if(!EntityChecker.isStation(station))
+            return Integer.MIN_VALUE;
+        int i = 0;
+        for(CoreEntity s : taskedStation) {
+            if(s.getEntity().equals(station)) {
+                return i;
+            }
+            i++;
+        }
+
+        return Integer.MIN_VALUE;
+    }
+
     private boolean checkTwoSteps(Deque<Cell> moves) {
         int i = 0;
         for(Cell m : moves) {

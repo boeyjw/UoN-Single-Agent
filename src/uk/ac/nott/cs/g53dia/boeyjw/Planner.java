@@ -74,10 +74,6 @@ public class Planner extends Mapper {
                     if(!entities.get("fuel").isEmpty()) {
                         boolean[] feasibleNodes = getFeasibleNodes(gscored_nodes, entities.get("fuel"), estFuelLevel);
                         argmin = getArgminDistance(gscored_nodes, feasibleNodes);
-                        for(boolean b : feasibleNodes) {
-                            l.dc(b + ", ");
-                        }
-                        l.d("");
                     }
                     else {
                         argmin = getArgminDistance(gscored_nodes);

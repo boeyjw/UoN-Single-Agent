@@ -124,7 +124,7 @@ public class DemoTanker extends Tanker {
             }
         }
 
-        interceptor.intercept(moves, this, timestep);
+        interceptor.intercept(moves, this, timestep, taskedStation);
         explorer.getPassbyTask(moves, getWasteLevel(), taskedStation);
         cleanup();
         for(Cell c : moves) {
