@@ -1,5 +1,6 @@
 package uk.ac.nott.cs.g53dia.demo;
 import uk.ac.nott.cs.g53dia.library.*;
+import uk.ac.nott.cs.g53dia.boeyjw.DemoTanker;
 import java.util.Random;
 
 /**
@@ -25,7 +26,7 @@ public class DemoSimulator {
      * Time for which execution pauses so that GUI can update.
      * Reducing this value causes the simulation to run faster.
      */
-    private static int DELAY = 100;
+    private static int DELAY = 0;
 	
     /**
      * Number of timesteps to execute
@@ -34,7 +35,7 @@ public class DemoSimulator {
 	
     public static void main(String[] args) {
 	// Set the seed for reproducible behaviour
-	Random r = new Random();
+	Random r = new Random(123456789); // TODO: Change the seed to nothing after finished building
         // Create an environment
         Environment env = new Environment(Tanker.MAX_FUEL/2, r);
         // Create a tanker
@@ -57,7 +58,8 @@ public class DemoSimulator {
                 act.execute(env, tank);
 	    } catch (OutOfFuelException ofe) {
                 System.err.println(ofe.getMessage());
-		System.exit(-1);
+//		System.exit(-1);
+                break;
             } catch (ActionFailedException afe) {
                 System.err.println(afe.getMessage());
             }
