@@ -11,17 +11,23 @@ public class Planner extends Mapper {
 
     private final int MAX_STATION_VISIT;
 
+    private Log l;
+
     Planner() {
         MAX_STATION_VISIT = 3;
+        l = new Log(true);
     }
 
-    public Deque<EntityNode> plan(Hashtable<String, List<CoreEntity>> entities, int currentFuelLevel, EntityNode current) {
+    public Deque<EntityNode> plan(Hashtable<String, List<CoreEntity>> entities,
+                                  int currentFuelLevel, int currentWasteLevel, EntityNode current) {
         int estFuelLevel = currentFuelLevel;
+        int estWasteLevel = currentWasteLevel;
         int stationVisitCounter = 0;
         boolean hasPlan = false;
         String nextMove = "";
         Deque<EntityNode> plannedMoves = new ArrayDeque<>();
         List<CoreEntity> taskedStations = entities.get("taskedStation");
+        boolean noFeasibleNodes = false;
 
         current.setGscore(0);
         current.setFuelConsumption(0);
@@ -29,10 +35,12 @@ public class Planner extends Mapper {
 
         while(true) {
             EntityNode currentMove = plannedMoves.peekLast();
-            if(!entities.get("fuel").isEmpty() && !super.acceptableFuelLevel(estFuelLevel, super.getClosestEntityDistanceTo(entities.get("fuel"), currentMove))) {
+            if(!entities.get("fuel").isEmpty() && !super.acceptableFuelLevel(estFuelLevel, super.getClosestEntityDistanceTo(entities.get("fuel"), currentMove)) ||
+                    noFeasibleNodes) {
                 nextMove = "fuel";
             }
-            else if(!entities.get("well").isEmpty() && stationVisitCounter >= MAX_STATION_VISIT) {
+            else if(!entities.get("well").isEmpty() && stationVisitCounter >= MAX_STATION_VISIT ||
+                    !super.acceptableWasteLevel(estWasteLevel)) {
                 nextMove = "well";
             }
             else if(!taskedStations.isEmpty()){
@@ -41,11 +49,11 @@ public class Planner extends Mapper {
             else {
                 nextMove = "completed";
             }
-
+            l.d(nextMove);
             if(nextMove.equalsIgnoreCase("completed")) {
-                if(EntityChecker.isFuelPump(current.getEntity())) {
-                    plannedMoves.add(current);
-                }
+//                if(EntityChecker.isFuelPump(current.getEntity())) {
+//                    plannedMoves.add(current);
+//                }
                 if(verifyPlan(plannedMoves, currentFuelLevel, current)) {
                     break;
                 }
@@ -66,22 +74,33 @@ public class Planner extends Mapper {
                     if(!entities.get("fuel").isEmpty()) {
                         boolean[] feasibleNodes = getFeasibleNodes(gscored_nodes, entities.get("fuel"), estFuelLevel);
                         argmin = getArgminDistance(gscored_nodes, feasibleNodes);
+                        for(boolean b : feasibleNodes) {
+                            l.dc(b + ", ");
+                        }
+                        l.d("");
                     }
                     else {
                         argmin = getArgminDistance(gscored_nodes);
                     }
-                    if(nextMove.equalsIgnoreCase("taskedStation")) {
-                        stationVisitCounter++;
-                        taskedStations.remove(argmin);
+                    if(argmin != Integer.MAX_VALUE) {
+                        if(nextMove.equalsIgnoreCase("taskedStation")) {
+                            stationVisitCounter++;
+                            taskedStations.remove(argmin);
+                        }
+                        else {
+                            stationVisitCounter = 0;
+                            estWasteLevel = 0;
+                        }
+                        estFuelLevel -= gscored_nodes.get(argmin).getFuelConsumption();
+                        plannedMoves.add(gscored_nodes.remove(argmin));
                     }
                     else {
-                        stationVisitCounter = 0;
+                        noFeasibleNodes = true;
                     }
-                    estFuelLevel -= gscored_nodes.get(argmin).getFuelConsumption();
-                    plannedMoves.add(gscored_nodes.remove(argmin));
                 }
                 // next move is fuel pump
                 else {
+                    noFeasibleNodes = false;
                     int argmin = getArgminDistance(gscored_nodes);
                     plannedMoves.add(gscored_nodes.remove(argmin));
                     estFuelLevel = 100;

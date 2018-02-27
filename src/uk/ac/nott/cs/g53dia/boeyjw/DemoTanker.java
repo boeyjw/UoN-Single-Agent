@@ -61,6 +61,7 @@ public class DemoTanker extends Tanker {
     }
 
     public Action senseAndAct(Cell[][] view, long timestep) {
+        l.d("Timestep: " + timestep);
         int mapperStatus = 0;
         // Add actual positions of fuel pumps, wells and stations to form an entity map
         if(mapper.addToMap(getCurrentCell(view))) {
@@ -72,7 +73,8 @@ public class DemoTanker extends Tanker {
 
         if(moves.isEmpty()) {
             if(!EntityChecker.isEmptyCell(getCurrentCell(view))) {
-                plannedMoves = planner.plan(entities, getFuelLevel(), new EntityNode(getCurrentCell(view), new Coordinates(VIEW_RANGE, VIEW_RANGE), timestep, getPosition()));
+                plannedMoves = planner.plan(entities, getFuelLevel(), getWasteLevel(),
+                        new EntityNode(getCurrentCell(view), new Coordinates(VIEW_RANGE, VIEW_RANGE), timestep, getPosition()));
             }
             if(plannedMoves.isEmpty()) {
                 if(!Explorer.explorerMode) {
@@ -91,9 +93,9 @@ public class DemoTanker extends Tanker {
                 explorerDirection = explorer.getAndUpdateDirection();
             }
         }
-        else {
+        if(!moves.isEmpty()) {
             Cell c = moves.peekFirst();
-            if(getCurrentCell(view).equals(c)) {
+            if(EntityChecker.getEntityType(c) == EntityChecker.getEntityType(getCurrentCell(view))) {
                 l.d("Current: " + getCurrentCell(view).hashCode());
                 if(EntityChecker.isFuelPump(c)) {
                     if(Explorer.explorerMode) {

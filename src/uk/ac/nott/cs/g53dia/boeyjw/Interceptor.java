@@ -25,6 +25,9 @@ public class Interceptor extends Mapper {
                 needDispose = true;
             }
         }
+        else if(!moves.isEmpty() && EntityChecker.isWell(moves.peekFirst())) {
+            moves.removeFirst();
+        }
         if(!super.acceptableFuelLevel(t.getFuelLevel(), Math.toIntExact(timestep - lastClosestFuelPumpSeen.getLastVisited()) + Tanker.VIEW_RANGE)) {
             if(!moves.isEmpty() && !EntityChecker.isFuelPump(moves.peekFirst())) {
                 needRefuel = true;
@@ -39,6 +42,8 @@ public class Interceptor extends Mapper {
         if(needRefuel) {
             moves.push(lastClosestFuelPumpSeen.getEntity());
         }
+        if(moves.isEmpty())
+            Explorer.explorerMode = true;
         if(needDispose || needRefuel)
             System.out.println("INTERCEPTED");
     }
