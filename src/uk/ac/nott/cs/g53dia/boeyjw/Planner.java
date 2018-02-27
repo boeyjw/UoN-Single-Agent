@@ -183,8 +183,8 @@ public class Planner extends Mapper {
     private boolean verifyPlan(Deque<EntityNode> plannedMoves, int currentFuelLevel, EntityNode current) {
         if(!plannedMoves.peekFirst().getEntity().equals(current.getEntity()) || plannedMoves.isEmpty())
             return false;
-        else if(EntityChecker.isFuelPump(current.getEntity()) && !plannedMoves.peekFirst().getEntity().equals(plannedMoves.peekLast().getEntity()))
-            return false;
+//        else if(EntityChecker.isFuelPump(current.getEntity()) && !plannedMoves.peekFirst().getEntity().equals(plannedMoves.peekLast().getEntity()))
+//            return false;
         else {
             int stationCounter = 0;
             int estFuelLevel = currentFuelLevel;

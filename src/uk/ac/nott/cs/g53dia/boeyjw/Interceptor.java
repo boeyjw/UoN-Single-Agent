@@ -18,7 +18,7 @@ public class Interceptor extends Mapper {
         boolean needDispose = false;
         boolean needRefuel = false;
         if(!super.acceptableWasteLevel(t.getWasteLevel())) {
-            if(!moves.isEmpty() && !EntityChecker.isWell(moves.peekFirst())) {
+            if(!moves.isEmpty() && !checkTwoSteps(moves)) {
                 needDispose = true;
             }
             else if(moves.isEmpty()) {
@@ -46,6 +46,18 @@ public class Interceptor extends Mapper {
             Explorer.explorerMode = true;
         if(needDispose || needRefuel)
             System.out.println("INTERCEPTED");
+    }
+    private boolean checkTwoSteps(Deque<Cell> moves) {
+        int i = 0;
+        for(Cell m : moves) {
+            if(i >= 2)
+                break;
+            if(EntityChecker.isWell(m))
+                return true;
+            else
+                i++;
+        }
+        return false;
     }
 
     public void setLastClosestSeen(CoreEntity well, CoreEntity fuelPump) {
