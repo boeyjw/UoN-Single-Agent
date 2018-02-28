@@ -13,13 +13,13 @@ import java.util.Random;
  * See the file "license.terms" for information on usage and redistribution
  * of this file, and for a DISCLAIMER OF ALL WARRANTIES.
  */
-public class DemoTanker extends Tanker {
+public class DemoTankerOriginal extends Tanker {
 	
-    public DemoTanker() { 
+    public DemoTankerOriginal() {
 	this(new Random());
     }
 
-    public DemoTanker(Random r) {
+    public DemoTankerOriginal(Random r) {
 	this.r = r;
     }
 

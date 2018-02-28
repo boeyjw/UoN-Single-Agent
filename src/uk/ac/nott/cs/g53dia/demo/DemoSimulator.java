@@ -82,7 +82,7 @@ public class DemoSimulator {
 
     public static void main(String[] args) {
         int runs = 10;
-        int seed = -1;
+        int seed = SEED;
         runs = seed == SEED ? 1 : runs;
         int[] score = runSim(runs, seed);
         int i = 0;
@@ -102,7 +102,7 @@ public class DemoSimulator {
 //        // Create an environment
 //        Environment env = new Environment(Tanker.MAX_FUEL/2, r);
 //        // Create a tanker
-//        Tanker tank = new DemoTanker(r);
+//        Tanker tank = new DemoTankerOriginal(r);
 //        // Create a GUI window to show the tanker
 //        TankerViewer tv = new TankerViewer(tank);
 //        tv.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);

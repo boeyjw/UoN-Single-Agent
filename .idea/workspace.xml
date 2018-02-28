@@ -9,11 +9,8 @@
     <list default="true" id="331d7a2f-1180-4d44-a645-30c977384c55" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/DemoTanker.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/DemoTanker.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Explorer.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Explorer.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Interceptor.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Interceptor.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Log.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Log.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Planner.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Planner.java" />
       <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTanker.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTankerOriginal.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +25,8 @@
       <file leaf-file-name="DemoTanker.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/DemoTanker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="709">
-              <caret line="169" column="60" lean-forward="true" selection-start-line="169" selection-start-column="60" selection-end-line="169" selection-end-column="60" />
+            <state relative-caret-position="457">
+              <caret line="184" column="32" lean-forward="false" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#912#913#0" expanded="true" />
@@ -42,8 +39,8 @@
       <file leaf-file-name="DemoSimulator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="84" column="21" lean-forward="false" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
+            <state relative-caret-position="310">
+              <caret line="84" column="23" lean-forward="false" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -546,11 +543,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519832928501</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="No more MoveAction: Already There exceptions">
+      <created>1519851905725</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1519851905725</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211819000" />
+    <option name="totallyTimeSpent" value="212064000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -563,7 +567,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -578,7 +581,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12916666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12916666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -662,7 +665,8 @@
     <MESSAGE value="Loop in planner between fuel and well" />
     <MESSAGE value="Loop in planner between fuel and well, dumb moves" />
     <MESSAGE value="[Dirty Fix] Fuel well looping fixed." />
-    <option name="LAST_COMMIT_MESSAGE" value="[Dirty Fix] Fuel well looping fixed." />
+    <MESSAGE value="No more MoveAction: Already There exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="No more MoveAction: Already There exceptions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -671,13 +675,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="28" column="32" lean-forward="false" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/boeyjwhold/Memory.java" />
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/TankerViewer.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -977,14 +974,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="84" column="21" lean-forward="false" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/LoadWasteAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -993,10 +982,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTankerOriginal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="84" column="23" lean-forward="false" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/DemoTanker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="709">
-          <caret line="169" column="60" lean-forward="true" selection-start-line="169" selection-start-column="60" selection-end-line="169" selection-end-column="60" />
+        <state relative-caret-position="457">
+          <caret line="184" column="32" lean-forward="false" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#912#913#0" expanded="true" />

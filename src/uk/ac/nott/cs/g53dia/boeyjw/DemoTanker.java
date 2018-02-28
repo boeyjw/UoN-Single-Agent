@@ -182,7 +182,8 @@ public class DemoTanker extends Tanker {
         }
 
         // Should never reach here
-        return null;
+        System.out.println("NULL");
+        return new MoveAction(explorer.getAndUpdateDirection());
     }
 
     /**
