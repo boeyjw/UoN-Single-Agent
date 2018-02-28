@@ -1,6 +1,7 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 public abstract class Mapper {
@@ -13,7 +14,14 @@ public abstract class Mapper {
         return !Threshold.HIGHEST_WASTE.hitThreshold(estWasteLevel);
     }
 
-    protected ArrayDeque<Integer> planMoveTo(Coordinates source, Coordinates target) {
+    /**
+     * Creates a queue of moves to make diagonally and straight movements manually to mvoe from source to target coordinates
+     * @param source Source coordinate
+     * @param target Target coordinate
+     * @return Queue containing number of diagonal and straight steps to reach target from given source
+     */
+    @Deprecated
+    protected Deque<Integer> planMoveTo(Coordinates source, Coordinates target) {
         ArrayDeque<Integer> moves = new ArrayDeque<>();
         TwoNumberTuple preManhatten = source.manhattenAbsolute(target);
 

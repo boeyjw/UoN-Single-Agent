@@ -128,4 +128,22 @@ public class Calculation {
 
         return perfSqr;
     }
+
+    /**
+     * Find argmax for int types
+     * @param arr Array to traverse
+     * @return Argmax
+     */
+    public static Integer argmax_int(Integer[] arr) {
+        Integer argmax = 0;
+        Integer max = Integer.MIN_VALUE;
+        for(int i = 0; i < arr.length; i++) {
+            if(arr[i] > max) {
+                max = arr[i];
+                argmax = i;
+            }
+        }
+
+        return argmax;
+    }
 }

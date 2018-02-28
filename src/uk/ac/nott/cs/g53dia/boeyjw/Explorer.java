@@ -2,11 +2,9 @@ package uk.ac.nott.cs.g53dia.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.MoveAction;
+import uk.ac.nott.cs.g53dia.library.Tanker;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Handles exploration of the tanker
@@ -45,6 +43,25 @@ public class Explorer extends Mapper {
         return dir;
     }
 
+    public int getDirectionUsingClusterAttraction(Hashtable<String, List<CoreEntity>> entities, Tanker t) {
+        Integer[] directionCounter = new Integer[Threshold.TOTAL_DIRECTION_BOUND.getThreshold()];
+        Arrays.fill(directionCounter, 0);
+        for(CoreEntity e: entities.get("station")) {
+            if(e.getBearing() != Integer.MIN_VALUE) {
+                directionCounter[e.getBearing()]++;
+            }
+        }
+        for(CoreEntity e : entities.get("taskedStation")) {
+            if(e.getBearing() != Integer.MIN_VALUE) {
+                directionCounter[e.getBearing()] += 2;
+            }
+        }
+        int dir = Calculation.argmax_int(directionCounter);
+        direction = dir == direction ? getAndUpdateDirection() : dir;
+
+        return direction;
+    }
+
     public long getStartExplorerTimestep() {
         return startExplorerTimestep;
     }
@@ -55,7 +72,7 @@ public class Explorer extends Mapper {
 
     public void getPassbyTask(Deque<Cell> moves, int wasteLevel, List<CoreEntity> station) {
         if(explorerMode && !station.isEmpty() && moves.isEmpty() && super.acceptableWasteLevel(wasteLevel)) {
-            moves.addLast(station.get(0).getEntity());
+                moves.addLast(station.get(station.size() - 1).getEntity());
         }
     }
 }

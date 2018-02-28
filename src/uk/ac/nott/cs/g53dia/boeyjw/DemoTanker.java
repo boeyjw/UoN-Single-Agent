@@ -65,11 +65,11 @@ public class DemoTanker extends Tanker {
         int mapperStatus = 0;
         // Add actual positions of fuel pumps, wells and stations to form an entity map
         if(mapper.addToMap(getCurrentCell(view))) {
-            mapperStatus = mapper.addPermanentPositions(new EntityNode(getCurrentCell(view), new Coordinates(VIEW_RANGE, VIEW_RANGE), timestep, getPosition()));
+            mapperStatus = mapper.addPermanentPositions(new EntityNode(getCurrentCell(view), Coordinates.getTankerCoordinate(), timestep, getPosition()));
         }
         spiralScanView(view, timestep);
         interceptor.setLastClosestSeen(entities.get("well").isEmpty() ? null : entities.get("well").get(entities.get("well").size() - 1),
-                entities.get("fuel").isEmpty() ? null : entities.get("fuel").get(entities.get("fuel").size() - 1));
+                entities.get("fuel").isEmpty() ? null : entities.get("fuel").get(entities.get("fuel").size() - 1), timestep);
 
         if(moves.isEmpty()) {
             if(!EntityChecker.isEmptyCell(getCurrentCell(view))) {
@@ -91,15 +91,17 @@ public class DemoTanker extends Tanker {
                 }
                 plannedMoves.clear();
                 explorerDirection = explorer.getAndUpdateDirection();
+//                explorerDirection = explorer.getDirectionUsingClusterAttraction(entities, this);
             }
         }
         if(!moves.isEmpty()) {
             Cell c = moves.peekFirst();
-            if(EntityChecker.getEntityType(c) == EntityChecker.getEntityType(getCurrentCell(view))) {
+            if(EntityChecker.getEntityType(c) == EntityChecker.getEntityType(getCurrentCell(view)) || getCurrentCell(view).equals(c)) {
                 l.d("Current: " + getCurrentCell(view).hashCode());
                 if(EntityChecker.isFuelPump(c)) {
                     if(Explorer.explorerMode) {
                         explorerDirection = explorer.getAndUpdateDirection();
+//                        explorerDirection = explorer.getDirectionUsingClusterAttraction(entities, this);
                     }
                     history.add(moves.removeFirst());
                     l.d("MOVES: REFUEL" + " => " + c.getClass() + " @ " + c.hashCode());
@@ -136,6 +138,9 @@ public class DemoTanker extends Tanker {
             return new MoveTowardsAction(moves.peek().getPoint());
         }
         else if(Explorer.explorerMode && plannedMoves.isEmpty()) {
+            if(getWasteLevel() < MAX_WASTE && EntityChecker.isStation(getCurrentCell(view)) && ((Station) getCurrentCell(view)).getTask() != null) {
+                return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
+            }
             return new MoveAction(explorerDirection);
         }
 
@@ -205,15 +210,21 @@ public class DemoTanker extends Tanker {
      * @param timestep The current timestep in the simulation
      */
     private void binEntitiesToStack(Cell entity, int x, int y, long timestep) {
-        if(EntityChecker.isFuelPump(entity))
-            fuelpump.add(new EntityNode(entity, x, y, timestep));
-        else if(EntityChecker.isStation(entity)) {
-            station.add(new EntityNode(entity, x, y, timestep));
-            if(((Station) entity).getTask() != null)
-                taskedStation.add(new EntityNode(entity, x, y, timestep));
+        EntityNode node = new EntityNode(entity, x, y, timestep);
+        node.setBearing(Calculation.targetBearing(Coordinates.getTankerCoordinate(), node.getCoord()));
+        if(EntityChecker.isFuelPump(entity)) {
+            fuelpump.add(node);
         }
-        else if(EntityChecker.isWell(entity))
-            well.add(new EntityNode(entity, x, y, timestep));
+        else if(EntityChecker.isStation(entity)) {
+            station.add(node);
+            if(((Station) entity).getTask() != null) {
+                taskedStation.add(node);
+
+            }
+        }
+        else if(EntityChecker.isWell(entity)) {
+            well.add(node);
+        }
     }
 
     private void cleanup() {

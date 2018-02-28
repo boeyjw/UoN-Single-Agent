@@ -36,7 +36,7 @@ public class DemoSimulator {
 	
     public static void main(String[] args) {
 	// Set the seed for reproducible behaviour
-	Random r = new Random(); // TODO: Change the seed to nothing after finished building
+	Random r = new Random(SEED); // TODO: Change the seed to nothing after finished building
         // Create an environment
         Environment env = new Environment(Tanker.MAX_FUEL/2, r);
         // Create a tanker
@@ -69,6 +69,49 @@ public class DemoSimulator {
 	    } catch (Exception e) { }
         }
     }
-
+//public static void main(String[] args) {
+//    int i = 0;
+//    int[] score = new int[10];
+//    while(i < 10) {
+//    // Set the seed for reproducible behaviour
+//    Random r = new Random(); // TODO: Change the seed to nothing after finished building
+//    // Create an environment
+//    Environment env = new Environment(Tanker.MAX_FUEL/2, r);
+//    // Create a tanker
+//    Tanker tank = new DemoTanker(r);
+//    // Create a GUI window to show the tanker
+//    TankerViewer tv = new TankerViewer(tank);
+//    tv.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+//    // Start executing the Tanker
+//    while (env.getTimestep() < DURATION) {
+//        // Advance the environment timestep
+//        env.tick();
+//        // Update the GUI
+//        tv.tick(env);
+//        // Get the current view of the tanker
+//        Cell[][] view = env.getView(tank.getPosition(), Tanker.VIEW_RANGE);
+//        // Let the tanker choose an action
+//        Action act = tank.senseAndAct(view, env.getTimestep());
+//        // Try to execute the action
+//        try {
+//            act.execute(env, tank);
+//        } catch (OutOfFuelException ofe) {
+//            System.err.println(ofe.getMessage());
+////		System.exit(-1);
+//            break;
+//        } catch (ActionFailedException afe) {
+//            System.err.println(afe.getMessage());
+//        }
+//        try {
+//            Thread.sleep(DELAY);
+//        } catch (Exception e) { }
+//
+//    }
+//    score[i++] = tank.getScore();
+//    }
+//    for(int s : score) {
+//        System.out.print(s + "\t");
+//    }
+//}
 	
 }

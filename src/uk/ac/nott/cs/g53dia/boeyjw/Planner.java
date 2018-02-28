@@ -20,12 +20,12 @@ public class Planner extends Mapper {
 
     public Deque<EntityNode> plan(Hashtable<String, List<CoreEntity>> entities,
                                   int currentFuelLevel, int currentWasteLevel, EntityNode current) {
+        Deque<EntityNode> plannedMoves = new ArrayDeque<>();
         int estFuelLevel = currentFuelLevel;
         int estWasteLevel = currentWasteLevel;
         int stationVisitCounter = 0;
         boolean hasPlan = false;
         String nextMove = "";
-        Deque<EntityNode> plannedMoves = new ArrayDeque<>();
         List<CoreEntity> taskedStations = entities.get("taskedStation");
         boolean noFeasibleNodes = false;
 
@@ -35,13 +35,21 @@ public class Planner extends Mapper {
 
         while(true) {
             EntityNode currentMove = plannedMoves.peekLast();
-            if(!entities.get("fuel").isEmpty() && !super.acceptableFuelLevel(estFuelLevel, super.getClosestEntityDistanceTo(entities.get("fuel"), currentMove)) ||
-                    noFeasibleNodes) {
-                nextMove = "fuel";
+            if(!entities.get("fuel").isEmpty()) {
+                if(!super.acceptableFuelLevel(estFuelLevel, super.getClosestEntityDistanceTo(entities.get("fuel"), currentMove)) || noFeasibleNodes) {
+                    nextMove = "fuel";
+                }
+                else {
+                    nextMove = "completed";
+                }
             }
-            else if(!entities.get("well").isEmpty() && stationVisitCounter >= MAX_STATION_VISIT ||
-                    !super.acceptableWasteLevel(estWasteLevel)) {
-                nextMove = "well";
+            else if(!entities.get("well").isEmpty()) {
+                if(stationVisitCounter >= MAX_STATION_VISIT || !super.acceptableWasteLevel(estWasteLevel)) {
+                    nextMove = "well";
+                }
+                else {
+                    nextMove = "completed";
+                }
             }
             else if(!taskedStations.isEmpty()){
                 nextMove = "taskedStation";
@@ -51,9 +59,6 @@ public class Planner extends Mapper {
             }
             l.d(nextMove);
             if(nextMove.equalsIgnoreCase("completed")) {
-//                if(EntityChecker.isFuelPump(current.getEntity())) {
-//                    plannedMoves.add(current);
-//                }
                 if(verifyPlan(plannedMoves, currentFuelLevel, current)) {
                     break;
                 }
@@ -179,8 +184,6 @@ public class Planner extends Mapper {
     private boolean verifyPlan(Deque<EntityNode> plannedMoves, int currentFuelLevel, EntityNode current) {
         if(!plannedMoves.peekFirst().getEntity().equals(current.getEntity()) || plannedMoves.isEmpty())
             return false;
-//        else if(EntityChecker.isFuelPump(current.getEntity()) && !plannedMoves.peekFirst().getEntity().equals(plannedMoves.peekLast().getEntity()))
-//            return false;
         else {
             int stationCounter = 0;
             int estFuelLevel = currentFuelLevel;

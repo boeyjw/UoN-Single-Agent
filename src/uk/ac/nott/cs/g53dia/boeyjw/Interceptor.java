@@ -5,6 +5,9 @@ import uk.ac.nott.cs.g53dia.library.Tanker;
 
 import java.util.*;
 
+/**
+ * Interrupts agent's current moveset (before or after planning) to satisfy urgent needs.
+ */
 public class Interceptor extends Mapper {
     private CoreEntity lastClosestWellSeen;
     private CoreEntity lastClosestFuelPumpSeen;
@@ -17,6 +20,15 @@ public class Interceptor extends Mapper {
         l = new Log(true);
     }
 
+    /**
+     * Reacts to agent environment based on agent's urgent needs (dispose waste && refuel)
+     * Directly inserts into moveset using last seen entities {@link uk.ac.nott.cs.g53dia.library.FuelPump} and {@link uk.ac.nott.cs.g53dia.library.Well}
+     * @param moves The current moves set, whether planned or unplanned
+     * @param t Tanker object to get tanker status
+     * @param timestep Current timestep to estimate distance between tanker and last seen entities
+     * @param taskedStation List of recently seen tasked stations, used to compare with moveset to check if
+     *                      after intercepting, is the next move still feasible with fuel restrictions
+     */
     public void intercept(Deque<Cell> moves, Tanker t, long timestep, List<CoreEntity> taskedStation) {
         boolean needDispose = false;
         boolean needRefuel = false;
@@ -39,27 +51,31 @@ public class Interceptor extends Mapper {
                 needRefuel = true;
             }
         }
-        if(needDispose || needRefuel && !taskedStation.isEmpty()) {
+        // If there is a tasked station after interrupt but is no longer feasible to go over to finish the task, remove it
+        if(needDispose || needRefuel && !taskedStation.isEmpty() && EntityChecker.isStation(moves.peekFirst())) {
             int taskedIndex = getIdenticalStation(taskedStation, moves.peekFirst());
             l.d("Tasked Index: " + taskedIndex);
             if(taskedIndex != Integer.MIN_VALUE) {
                 int dist = Tanker.VIEW_RANGE + Math.toIntExact(timestep - (needDispose ? lastClosestWellSeen.getLastVisited() : lastClosestFuelPumpSeen.getLastVisited())) +
-                        Calculation.modifiedManhattenDistance(new Coordinates(Tanker.VIEW_RANGE, Tanker.VIEW_RANGE), taskedStation.get(taskedIndex).getCoord());
+                        Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), taskedStation.get(taskedIndex).getCoord());
                 l.d("Distance: " + dist);
                 if(!super.acceptableFuelLevel(100 - dist, dist)) {
                     moves.removeFirst();
                 }
             }
-            l.d("INTERCEPTED");
         }
-        if(needDispose) {
+        if(needDispose && lastClosestWellSeen != null) {
             moves.push(lastClosestWellSeen.getEntity());
         }
         if(needRefuel) {
             moves.push(lastClosestFuelPumpSeen.getEntity());
         }
-        if(moves.isEmpty())
+        if(needDispose || needRefuel) {
+            l.d("INTERCEPTED");
+        }
+        if(moves.isEmpty()) {
             Explorer.explorerMode = true;
+        }
     }
 
     private int getIdenticalStation(List<CoreEntity> taskedStation, Cell station) {
@@ -89,12 +105,19 @@ public class Interceptor extends Mapper {
         return false;
     }
 
-    public void setLastClosestSeen(CoreEntity well, CoreEntity fuelPump) {
+    public void setLastClosestSeen(CoreEntity well, CoreEntity fuelPump, long timestep) {
         if(well != null) {
             lastClosestWellSeen = well;
         }
         if(fuelPump != null) {
             lastClosestFuelPumpSeen = fuelPump;
+            if(well == null && lastClosestWellSeen != null) {
+                int dist = Tanker.VIEW_RANGE + Math.toIntExact(timestep - lastClosestWellSeen.getLastVisited()) +
+                        Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), lastClosestFuelPumpSeen.getCoord());
+                if(!super.acceptableFuelLevel(100 - dist, dist)) {
+                    lastClosestWellSeen = null;
+                }
+            }
         }
     }
 }
