@@ -32,6 +32,9 @@ public class Interceptor extends Mapper {
     public void intercept(Deque<Cell> moves, Tanker t, long timestep, List<CoreEntity> taskedStation) {
         boolean needDispose = false;
         boolean needRefuel = false;
+//        if(moves.size() == 1 && EntityChecker.isWell(moves.peekFirst())) {
+//            moves.removeFirst();
+//        }
         if(!super.acceptableWasteLevel(t.getWasteLevel())) {
             if(!moves.isEmpty() && !checkTwoSteps(moves)) {
                 needDispose = true;
@@ -71,7 +74,14 @@ public class Interceptor extends Mapper {
             }
         }
         if(needDispose && lastClosestWellSeen != null) {
-            moves.push(lastClosestWellSeen.getEntity());
+            if(EntityChecker.isFuelPump(moves.peekFirst())) {
+                Cell fuelpump = moves.pop();
+                moves.push(lastClosestWellSeen.getEntity());
+                moves.push(fuelpump);
+            }
+            else {
+                moves.push(lastClosestWellSeen.getEntity());
+            }
         }
         if(needRefuel) {
             moves.push(lastClosestFuelPumpSeen.getEntity());
@@ -125,5 +135,9 @@ public class Interceptor extends Mapper {
                 }
             }
         }
+    }
+
+    public CoreEntity getLastClosestFuelPumpSeen() {
+        return lastClosestFuelPumpSeen;
     }
 }

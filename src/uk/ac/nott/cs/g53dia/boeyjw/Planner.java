@@ -116,8 +116,56 @@ public class Planner extends Mapper {
         return plannedMoves;
     }
 
-    public boolean optimisePlan(Deque<Cell> moves, Hashtable<String, List<CoreEntity>> entities, Tanker t) {
-        return false;
+    public boolean permitNextMove(Cell move, Hashtable<String, List<CoreEntity>> entities,
+                                  Tanker t, CoreEntity lastClosestFuelpumpSeen, long timestep) {
+        String entityType = "";
+        if(EntityChecker.isFuelPump(move)) {
+            return true;
+        }
+        else if(EntityChecker.isWell(move)) {
+            entityType = "well";
+        }
+        else if(EntityChecker.isStation(move)) {
+            entityType = "taskedStation";
+        }
+
+        CoreEntity identicalMove = getIdentical(move, entities.get(entityType));
+        CoreEntity identicalFuel = getIdentical(lastClosestFuelpumpSeen.getEntity(), entities.get("fuel"));
+//        if(identicalFuel == null && identicalMove == null) {
+//            return !super.acceptableFuelLevel(t.getFuelLevel() - Tanker.VIEW_RANGE, Tanker.VIEW_RANGE * 2);
+//        }
+//        else if(identicalFuel != null && identicalMove == null) {
+//            return !super.acceptableFuelLevel(t.getFuelLevel() - Tanker.VIEW_RANGE,
+//                    Tanker.VIEW_RANGE + Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalFuel.getCoord()));
+//        }
+//        else if(identicalFuel == null && identicalMove != null) {
+//            return !super.acceptableFuelLevel(t.getFuelLevel() - Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
+//                    Calculation.modifiedManhattenDistance(identicalMove.getCoord(), Coordinates.getTankerCoordinate()) + Tanker.VIEW_RANGE);
+//        }
+//        else {
+//            return !super.acceptableFuelLevel(t.getFuelLevel() - Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
+//                    Calculation.modifiedManhattenDistance(identicalMove.getCoord(), identicalFuel.getCoord()));
+//        }
+        if(identicalFuel == null || identicalMove == null) {
+            return true;
+        }
+        else {
+            return super.acceptableFuelLevel(t.getFuelLevel() - Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
+                    Calculation.modifiedManhattenDistance(identicalMove.getCoord(), identicalFuel.getCoord()));
+        }
+    }
+
+    private CoreEntity getIdentical(Cell move, List<CoreEntity> entities) {
+        if(entities.isEmpty() || EntityChecker.getEntityType(move) != EntityChecker.getEntityType(entities.get(0).getEntity())) {
+            return null;
+        }
+        for(CoreEntity e : entities) {
+            if(move.equals(e.getEntity())) {
+                return e;
+            }
+        }
+
+        return null;
     }
 
     private boolean[] getFeasibleNodes(List<EntityNode> gscored, List<CoreEntity> fuelpumps, int estFuelLevel) {
@@ -195,11 +243,10 @@ public class Planner extends Mapper {
             int stationCounter = 0;
             int estFuelLevel = currentFuelLevel;
 
-            for(Iterator<EntityNode> it = plannedMoves.iterator(); it.hasNext(); ) {
+            for(EntityNode e : plannedMoves) {
                 if(estFuelLevel <= 0) {
                     return false;
                 }
-                EntityNode e = it.next();
 
                 if(EntityChecker.isFuelPump(e.getEntity())) {
                     estFuelLevel = 100;

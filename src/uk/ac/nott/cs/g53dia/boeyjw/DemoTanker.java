@@ -86,15 +86,12 @@ public class DemoTanker extends Tanker {
             else {
                 l.d("PLANNED");
                 Explorer.explorerMode = false;
-                for(EntityNode e : plannedMoves) {
-                    l.d(e.getEntity().getClass().getName() + " @ " + e.getEntityHash());
-                }
+                explorer.setEndExplorerTimeStep(timestep);
                 for(EntityNode e : plannedMoves) {
                     moves.add(e.getEntity());
                 }
                 plannedMoves.clear();
                 explorerDirection = explorer.getAndUpdateDirection();
-//                explorerDirection = explorer.getDirectionUsingClusterAttraction(entities, this);
             }
         }
         if(!moves.isEmpty()) {
@@ -104,7 +101,6 @@ public class DemoTanker extends Tanker {
                 if(EntityChecker.isFuelPump(c)) {
                     if(Explorer.explorerMode) {
                         explorerDirection = explorer.getAndUpdateDirection();
-//                        explorerDirection = explorer.getDirectionUsingClusterAttraction(entities, this);
                     }
                     history.add(moves.removeFirst());
                     l.d("MOVES: REFUEL" + " => " + c.getClass() + " @ " + c.hashCode());
@@ -115,7 +111,7 @@ public class DemoTanker extends Tanker {
                     l.d("MOVES: DUMP" + " => " + c.getClass() + " @ " + c.hashCode());
                     return new DisposeWasteAction();
                 }
-                else if(EntityChecker.isStation(c)) {
+                else if(EntityChecker.isStation(c) && getWasteCapacity() > 0) {
                     history.add(moves.removeFirst());
                     if(((Station) getCurrentCell(view)).getTask() != null) {
                         l.d("MOVES: LOAD" + " => " + c.getClass() + " @ " + c.hashCode());
@@ -129,6 +125,9 @@ public class DemoTanker extends Tanker {
             }
         }
 
+        if(!moves.isEmpty() && !planner.permitNextMove(moves.peekFirst(), entities, this, interceptor.getLastClosestFuelPumpSeen(), timestep)) {
+            moves.removeFirst();
+        }
         interceptor.intercept(moves, this, timestep, taskedStation);
         explorer.getPassbyTask(moves, getWasteLevel(), taskedStation);
         cleanup();
@@ -137,6 +136,40 @@ public class DemoTanker extends Tanker {
         }
         l.d("");
 
+        if(!moves.isEmpty()) {
+            Cell c = moves.peekFirst();
+            if(EntityChecker.getEntityType(c) == EntityChecker.getEntityType(getCurrentCell(view))) {
+                l.d("Current: " + getCurrentCell(view).hashCode());
+                if(EntityChecker.isFuelPump(c)) {
+                    if(Explorer.explorerMode) {
+                        explorerDirection = explorer.getAndUpdateDirection();
+                    }
+                    history.add(moves.removeFirst());
+                    l.d("MOVES: REFUEL" + " => " + c.getClass() + " @ " + c.hashCode());
+                    return new RefuelAction();
+                }
+                else if(EntityChecker.isWell(c)) {
+                    history.add(moves.removeFirst());
+                    l.d("MOVES: DUMP" + " => " + c.getClass() + " @ " + c.hashCode());
+                    return new DisposeWasteAction();
+                }
+                else if(EntityChecker.isStation(c) && getWasteCapacity() > 0) {
+                    history.add(moves.removeFirst());
+                    if(((Station) getCurrentCell(view)).getTask() != null) {
+                        l.d("MOVES: LOAD" + " => " + c.getClass() + " @ " + c.hashCode());
+                        return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
+                    }
+                }
+                else { //Empty cell
+                    l.d("MOVES: EMPTY CELL" + " => " + c.getClass() + " @ " + c.hashCode());
+                    history.add(moves.removeFirst());
+                }
+            }
+            if(moves.isEmpty()) {
+                Explorer.explorerMode = true;
+                explorer.setStartExplorerTimestep(timestep);
+            }
+        }
         if(!moves.isEmpty()) {
             return new MoveTowardsAction(moves.peek().getPoint());
         }

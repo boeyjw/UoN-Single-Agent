@@ -13,7 +13,7 @@ public class Log {
      * @param doLog If true, display logs
      */
     Log(boolean doLog) {
-        this.doLog = doLog;
+        this.doLog = !doLog;
     }
 
     /**
