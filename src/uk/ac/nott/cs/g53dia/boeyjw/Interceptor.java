@@ -36,6 +36,10 @@ public class Interceptor extends Mapper {
             if(!moves.isEmpty() && !checkTwoSteps(moves)) {
                 needDispose = true;
             }
+            else if(moves.size() == 1 && EntityChecker.isWell(moves.peekFirst())) {
+                moves.removeFirst();
+                needDispose = true;
+            }
             else if(moves.isEmpty()) {
                 needDispose = true;
             }
@@ -56,8 +60,10 @@ public class Interceptor extends Mapper {
             int taskedIndex = getIdenticalStation(taskedStation, moves.peekFirst());
             l.d("Tasked Index: " + taskedIndex);
             if(taskedIndex != Integer.MIN_VALUE) {
-                int dist = Tanker.VIEW_RANGE + Math.toIntExact(timestep - (needDispose ? lastClosestWellSeen.getLastVisited() : lastClosestFuelPumpSeen.getLastVisited())) +
+                int dist = Tanker.VIEW_RANGE + Math.toIntExact(timestep - (needDispose && lastClosestWellSeen != null ?
+                        lastClosestWellSeen.getLastVisited() : lastClosestFuelPumpSeen.getLastVisited())) +
                         Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), taskedStation.get(taskedIndex).getCoord());
+
                 l.d("Distance: " + dist);
                 if(!super.acceptableFuelLevel(100 - dist, dist)) {
                     moves.removeFirst();
@@ -71,7 +77,7 @@ public class Interceptor extends Mapper {
             moves.push(lastClosestFuelPumpSeen.getEntity());
         }
         if(needDispose || needRefuel) {
-            l.d("INTERCEPTED");
+            l.d("INTERCEPTED: " + (needDispose ? "WELL " : "") + (needRefuel ? "FUEL" : ""));
         }
         if(moves.isEmpty()) {
             Explorer.explorerMode = true;

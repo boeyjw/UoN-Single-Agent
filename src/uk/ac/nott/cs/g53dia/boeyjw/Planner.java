@@ -1,6 +1,7 @@
 package uk.ac.nott.cs.g53dia.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
+import uk.ac.nott.cs.g53dia.library.Tanker;
 
 import java.util.*;
 
@@ -115,6 +116,10 @@ public class Planner extends Mapper {
         return plannedMoves;
     }
 
+    public boolean optimisePlan(Deque<Cell> moves, Hashtable<String, List<CoreEntity>> entities, Tanker t) {
+        return false;
+    }
+
     private boolean[] getFeasibleNodes(List<EntityNode> gscored, List<CoreEntity> fuelpumps, int estFuelLevel) {
         boolean[] feasibleNodes = new boolean[gscored.size()];
         for(int i = 0; i < gscored.size(); i++) {
@@ -182,7 +187,9 @@ public class Planner extends Mapper {
     }
 
     private boolean verifyPlan(Deque<EntityNode> plannedMoves, int currentFuelLevel, EntityNode current) {
-        if(!plannedMoves.peekFirst().getEntity().equals(current.getEntity()) || plannedMoves.isEmpty())
+        if(plannedMoves.isEmpty())
+            return false;
+        else if(!plannedMoves.peekFirst().getEntity().equals(current.getEntity()))
             return false;
         else {
             int stationCounter = 0;

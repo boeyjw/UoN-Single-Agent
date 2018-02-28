@@ -74,7 +74,7 @@ public class DemoTanker extends Tanker {
         if(moves.isEmpty()) {
             if(!EntityChecker.isEmptyCell(getCurrentCell(view))) {
                 plannedMoves = planner.plan(entities, getFuelLevel(), getWasteLevel(),
-                        new EntityNode(getCurrentCell(view), new Coordinates(VIEW_RANGE, VIEW_RANGE), timestep, getPosition()));
+                        new EntityNode(getCurrentCell(view), Coordinates.getTankerCoordinate(), timestep, getPosition()));
             }
             if(plannedMoves.isEmpty()) {
                 if(!Explorer.explorerMode) {
@@ -87,6 +87,9 @@ public class DemoTanker extends Tanker {
                 l.d("PLANNED");
                 Explorer.explorerMode = false;
                 for(EntityNode e : plannedMoves) {
+                    l.d(e.getEntity().getClass().getName() + " @ " + e.getEntityHash());
+                }
+                for(EntityNode e : plannedMoves) {
                     moves.add(e.getEntity());
                 }
                 plannedMoves.clear();
@@ -96,7 +99,7 @@ public class DemoTanker extends Tanker {
         }
         if(!moves.isEmpty()) {
             Cell c = moves.peekFirst();
-            if(EntityChecker.getEntityType(c) == EntityChecker.getEntityType(getCurrentCell(view)) || getCurrentCell(view).equals(c)) {
+            if(EntityChecker.getEntityType(c) == EntityChecker.getEntityType(getCurrentCell(view))) {
                 l.d("Current: " + getCurrentCell(view).hashCode());
                 if(EntityChecker.isFuelPump(c)) {
                     if(Explorer.explorerMode) {
@@ -138,6 +141,7 @@ public class DemoTanker extends Tanker {
             return new MoveTowardsAction(moves.peek().getPoint());
         }
         else if(Explorer.explorerMode && plannedMoves.isEmpty()) {
+            l.d("EXPLORER MODE");
             if(getWasteLevel() < MAX_WASTE && EntityChecker.isStation(getCurrentCell(view)) && ((Station) getCurrentCell(view)).getTask() != null) {
                 return new LoadWasteAction(((Station) getCurrentCell(view)).getTask());
             }
