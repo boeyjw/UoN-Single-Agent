@@ -1,8 +1,7 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
+package uk.ac.nott.cs.g53dia.demo.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.MoveAction;
-import uk.ac.nott.cs.g53dia.library.Tanker;
 
 import java.util.*;
 
@@ -16,7 +15,7 @@ public class Explorer extends Mapper {
     private long startExplorerTimestep;
     private long endExplorerTimeStep;
 
-    Explorer(Random r) {
+    public Explorer(Random r) {
         crossDirectionMovement = new HashMap<>();
         init();
         direction = r.nextInt(Threshold.TOTAL_DIRECTION_BOUND.getThreshold());

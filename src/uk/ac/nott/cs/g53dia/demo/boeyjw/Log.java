@@ -1,6 +1,4 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
-
-import java.util.List;
+package uk.ac.nott.cs.g53dia.demo.boeyjw;
 
 /**
  * Utility class to display logs in the console
@@ -12,14 +10,14 @@ public class Log {
      * Allow logging
      * @param doLog If true, display logs
      */
-    Log(boolean doLog) {
+    public Log(boolean doLog) {
         this.doLog = !doLog;
     }
 
     /**
      * Defaults to no logs
      */
-    Log() {
+    public Log() {
         this(false);
     }
 

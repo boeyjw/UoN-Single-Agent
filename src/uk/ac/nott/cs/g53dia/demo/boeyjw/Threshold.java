@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
+package uk.ac.nott.cs.g53dia.demo.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Tanker;
 
@@ -21,15 +21,15 @@ public enum Threshold {
         this.isUpperLimit = isUpperLimit;
     }
 
-    int getThreshold() {
+    public int getThreshold() {
         return thresh;
     }
 
-    int getTotalViewGridLength() {
+    public int getTotalViewGridLength() {
         return TOTAL_VIEW_RANGE.getThreshold() * TOTAL_VIEW_RANGE.getThreshold();
     }
 
-    boolean hitThreshold(int value) {
+    public boolean hitThreshold(int value) {
         return isUpperLimit ? value >= thresh : value <= thresh;
     }
 }

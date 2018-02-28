@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
+package uk.ac.nott.cs.g53dia.demo.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.Tanker;
@@ -14,7 +14,7 @@ public class Planner extends Mapper {
 
     private Log l;
 
-    Planner() {
+    public Planner() {
         MAX_STATION_VISIT = 3;
         l = new Log(true);
     }

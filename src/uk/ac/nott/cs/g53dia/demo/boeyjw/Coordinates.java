@@ -1,8 +1,6 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
+package uk.ac.nott.cs.g53dia.demo.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Tanker;
-
-import java.util.ArrayDeque;
 
 public class Coordinates extends TwoNumberTuple {
     private static final Coordinates tankerCoordinate = new Coordinates(Tanker.VIEW_RANGE, Tanker.VIEW_RANGE);

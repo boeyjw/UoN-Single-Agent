@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
+package uk.ac.nott.cs.g53dia.demo.boeyjw;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.Point;
@@ -14,7 +14,7 @@ public class EntityNode extends CoreEntity {
 
     private EntityNode parent;
 
-    EntityNode(Cell entity, Coordinates coord, long firstVisited, Point position) {
+    public EntityNode(Cell entity, Coordinates coord, long firstVisited, Point position) {
         super(entity, coord, firstVisited, position);
         this.weight = 1; // No weight
         this.gscore = Integer.MAX_VALUE;
@@ -24,7 +24,7 @@ public class EntityNode extends CoreEntity {
         this.parent = null;
     }
 
-    EntityNode(Cell entity, int x, int y, long firstVisited) {
+    public EntityNode(Cell entity, int x, int y, long firstVisited) {
         this(entity, new Coordinates(x, y), firstVisited, null);
     }
 

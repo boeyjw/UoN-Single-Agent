@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo;
+package uk.ac.nott.cs.g53dia.Playground;
 import uk.ac.nott.cs.g53dia.library.*;
 import java.util.Random;
 

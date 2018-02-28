@@ -1,6 +1,5 @@
-package uk.ac.nott.cs.g53dia.boeyjw;
+package uk.ac.nott.cs.g53dia.demo.boeyjw;
 
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import uk.ac.nott.cs.g53dia.library.Cell;
 
 import java.util.*;
@@ -12,7 +11,7 @@ public class MapBuilder extends Mapper {
 
     private Hashtable<Integer, List<CoreEntity>> globalmap;
 
-    MapBuilder() {
+    public MapBuilder() {
         globalmap = new Hashtable<>();
         globalmap.put(EntityChecker.FUELPUMP, new ArrayList<>());
         globalmap.put(EntityChecker.WELL, new ArrayList<>());
