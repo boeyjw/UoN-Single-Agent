@@ -6,26 +6,23 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="331d7a2f-1180-4d44-a645-30c977384c55" name="Default" comment="Respect package order">
+    <list default="true" id="331d7a2f-1180-4d44-a645-30c977384c55" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Calculation.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Calculation.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Coordinates.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Coordinates.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/CoreEntity.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/CoreEntity.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/DemoTanker.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTanker.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/EntityChecker.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityChecker.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/EntityNode.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Explorer.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Explorer.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Interceptor.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Interceptor.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Log.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Log.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/MapBuilder.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/MapBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Mapper.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Mapper.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/NumberTuple.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/NumberTuple.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Planner.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Planner.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Threshold.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Threshold.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/TwoNumberTuple.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/TwoNumberTuple.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/Playground/DemoSimulatorOriginal.java" />
-      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTankerOriginal.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/Playground/DemoTankerOriginal.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTanker.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTanker.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Calculation.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Calculation.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Coordinates.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Coordinates.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/CoreEntity.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/CoreEntity.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityChecker.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/EntityChecker.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityNode.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/EntityNode.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Explorer.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Explorer.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Interceptor.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Interceptor.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Log.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Log.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/MapBuilder.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/MapBuilder.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Mapper.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Mapper.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/NumberTuple.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/NumberTuple.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Planner.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Planner.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Threshold.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Threshold.java" />
+      <change beforePath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/TwoNumberTuple.java" afterPath="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/TwoNumberTuple.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,55 +34,79 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="DemoTanker.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DemoTanker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTanker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="68" column="12" lean-forward="false" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+            <state relative-caret-position="0">
+              <caret line="0" column="28" lean-forward="false" selection-start-line="0" selection-start-column="28" selection-end-line="0" selection-end-column="28" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#953#954#0" expanded="true" />
-                <element signature="e#987#988#0" expanded="true" />
+                <element signature="e#869#870#0" expanded="true" />
+                <element signature="e#903#904#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Log.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Log.java">
+      <file leaf-file-name="Planner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Planner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="19" column="11" lean-forward="false" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+            <state relative-caret-position="189">
+              <caret line="93" column="83" lean-forward="true" selection-start-line="93" selection-start-column="83" selection-end-line="93" selection-end-column="83" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DemoSimulator.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="373">
+              <caret line="36" column="26" lean-forward="false" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Calculation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Calculation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="108" column="25" lean-forward="false" selection-start-line="108" selection-start-column="22" selection-end-line="108" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Threshold.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Threshold.java">
+        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Threshold.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+            <state relative-caret-position="128">
+              <caret line="9" column="57" lean-forward="false" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+              <folding>
+                <element signature="e#786#787#0" expanded="true" />
+                <element signature="e#815#816#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Interceptor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Interceptor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DemoSimulator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
+      <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/Station.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="36" column="26" lean-forward="true" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="26" column="11" lean-forward="false" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
+            <state relative-caret-position="21">
+              <caret line="36" column="9" lean-forward="true" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -115,6 +136,8 @@
       <find>Explorer.explorerMode = false</find>
       <find>explorer.getAndUpdateDirection</find>
       <find>cleanup</find>
+      <find>diagona</find>
+      <find>diagonal</find>
     </findStrings>
     <replaceStrings>
       <replace>getValue(0)</replace>
@@ -174,6 +197,16 @@
         <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Log.java" />
         <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Coordinates.java" />
         <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityNode.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Planner.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Coordinates.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/CoreEntity.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/EntityChecker.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/EntityNode.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Calculation.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Explorer.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTanker.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Planner.java" />
+        <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Threshold.java" />
         <option value="$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java" />
       </list>
     </option>
@@ -251,6 +284,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/G53DIA_CW1_jar/G53DIA-CW1.jar" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -531,11 +565,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519852150302</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Respect package order">
+      <created>1519852764006</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1519852764006</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212685000" />
+    <option name="totallyTimeSpent" value="231290000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -548,15 +589,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3298647" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.496875" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
@@ -671,9 +711,8 @@
         <state relative-caret-position="21">
           <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#953#954#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#869#870#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -684,13 +723,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="52" column="4" lean-forward="true" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -722,7 +754,7 @@
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/boeyjwhold/Interceptor.java" />
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/SingleMove.java" />
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/boeyjwhold/Entity.java" />
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/TwoNumberTuple.java">
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/TwoNumberTuple.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
@@ -731,7 +763,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/boeyjwhold/TankerManager.java" />
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/boeyjwhold/Interceptor.java" />
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/NumberTuple.java">
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/NumberTuple.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="14" column="46" lean-forward="false" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
@@ -747,26 +779,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/Entity.java" />
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/boeyjw/SimpleEntity.java" />
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Planner.java">
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Planner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="415">
           <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/MapBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="58" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#658#659#0" expanded="false" />
-            <element signature="e#690#691#0" expanded="false" />
-            <element signature="e#1175#1176#0" expanded="false" />
-            <element signature="e#1260#1261#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -785,13 +803,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/Station.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="55" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/Tanker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-420">
@@ -803,81 +814,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/CoreEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Mapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="47" column="97" lean-forward="false" selection-start-line="47" selection-start-column="91" selection-end-line="47" selection-end-column="97" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Calculation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2247">
-          <caret line="140" column="23" lean-forward="false" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityChecker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding>
-            <element signature="e#596#597#0" expanded="true" />
-            <element signature="e#644#645#0" expanded="true" />
-            <element signature="e#852#853#0" expanded="true" />
-            <element signature="e#897#898#0" expanded="true" />
-            <element signature="e#1118#1119#0" expanded="true" />
-            <element signature="e#1167#1168#0" expanded="true" />
-            <element signature="e#1392#1393#0" expanded="true" />
-            <element signature="e#1442#1443#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Explorer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="46" column="94" lean-forward="false" selection-start-line="46" selection-start-column="94" selection-end-line="46" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3172#3173#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Interceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5627#5628#0" expanded="true" />
-            <element signature="e#5673#5674#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Planner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="122" column="23" lean-forward="false" selection-start-line="122" selection-start-column="23" selection-end-line="122" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -893,14 +829,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-42">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/FallibleAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -934,9 +862,8 @@
         <state relative-caret-position="457">
           <caret line="184" column="32" lean-forward="false" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#953#954#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#869#870#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -946,28 +873,12 @@
         <state relative-caret-position="1302">
           <caret line="83" column="23" lean-forward="false" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Threshold.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Coordinates.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/Log.java">
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Log.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="19" column="11" lean-forward="false" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
@@ -975,31 +886,173 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/boeyjw/EntityNode.java">
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/FallibleAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="26" column="11" lean-forward="false" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
+        <state relative-caret-position="21">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Mapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="36" column="26" lean-forward="true" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+        <state relative-caret-position="525">
+          <caret line="27" column="45" lean-forward="false" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/MapBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Coordinates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="33" column="62" lean-forward="false" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
+          <folding>
+            <element signature="e#333#334#0" expanded="true" />
+            <element signature="e#360#361#0" expanded="true" />
+            <element signature="e#1283#1284#0" expanded="true" />
+            <element signature="e#1322#1323#0" expanded="true" />
+            <element signature="e#1368#1369#0" expanded="true" />
+            <element signature="e#1415#1416#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/CoreEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="78" lean-forward="false" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
+          <folding>
+            <element signature="e#959#960#0" expanded="true" />
+            <element signature="e#1028#1029#0" expanded="true" />
+            <element signature="e#1059#1060#0" expanded="true" />
+            <element signature="e#1088#1089#0" expanded="true" />
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
+            <element signature="e#1188#1189#0" expanded="true" />
+            <element signature="e#1222#1223#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+            <element signature="e#1316#1317#0" expanded="true" />
+            <element signature="e#1350#1351#0" expanded="true" />
+            <element signature="e#1383#1384#0" expanded="true" />
+            <element signature="e#1420#1421#0" expanded="true" />
+            <element signature="e#1448#1449#0" expanded="true" />
+            <element signature="e#1482#1483#0" expanded="true" />
+            <element signature="e#1513#1514#0" expanded="true" />
+            <element signature="e#1560#1561#0" expanded="true" />
+            <element signature="e#1600#1601#0" expanded="true" />
+            <element signature="e#1631#1632#0" expanded="true" />
+            <element signature="e#1661#1662#0" expanded="true" />
+            <element signature="e#1704#1705#0" expanded="true" />
+            <element signature="e#1742#1743#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/EntityChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="73" column="4" lean-forward="false" selection-start-line="73" selection-start-column="4" selection-end-line="73" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/EntityNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="6" column="48" lean-forward="false" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Explorer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="77" column="59" lean-forward="false" selection-start-line="77" selection-start-column="59" selection-end-line="77" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3326#3327#0" expanded="true" />
+            <element signature="e#3388#3389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1008">
+          <caret line="52" column="4" lean-forward="true" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/library/Station.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="36" column="9" lean-forward="true" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Calculation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="108" column="25" lean-forward="false" selection-start-line="108" selection-start-column="22" selection-end-line="108" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Interceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoTanker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="68" column="12" lean-forward="false" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+        <state relative-caret-position="0">
+          <caret line="0" column="28" lean-forward="false" selection-start-line="0" selection-start-column="28" selection-end-line="0" selection-end-column="28" />
+          <folding>
+            <element signature="e#869#870#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Planner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="93" column="83" lean-forward="true" selection-start-line="93" selection-start-column="83" selection-end-line="93" selection-end-column="83" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#953#954#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/Threshold.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="9" column="57" lean-forward="false" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+          <folding>
+            <element signature="e#786#787#0" expanded="true" />
+            <element signature="e#815#816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uk/ac/nott/cs/g53dia/demo/DemoSimulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="36" column="26" lean-forward="false" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 /**
  * Utility class to display logs in the console

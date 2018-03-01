@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.MoveAction;
@@ -71,6 +71,12 @@ public class Explorer extends Mapper {
         this.startExplorerTimestep = startExplorerTimestep;
     }
 
+    /**
+     * Loads waste whenever possible during exploration
+     * @param moves Inject into moveset
+     * @param wasteLevel Current agent waste level
+     * @param station Stations with task that has been seen
+     */
     public void getPassbyTask(Deque<Cell> moves, int wasteLevel, List<CoreEntity> station) {
         if(explorerMode && !station.isEmpty() && moves.isEmpty() && super.acceptableWasteLevel(wasteLevel)) {
                 moves.addLast(station.get(station.size() - 1).getEntity());

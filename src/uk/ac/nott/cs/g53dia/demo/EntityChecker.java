@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import uk.ac.nott.cs.g53dia.library.*;
 

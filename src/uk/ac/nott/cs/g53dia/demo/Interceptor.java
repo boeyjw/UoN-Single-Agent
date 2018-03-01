@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.Tanker;
@@ -65,7 +65,7 @@ public class Interceptor extends Mapper {
             if(taskedIndex != Integer.MIN_VALUE) {
                 int dist = Tanker.VIEW_RANGE + Math.toIntExact(timestep - (needDispose && lastClosestWellSeen != null ?
                         lastClosestWellSeen.getLastVisited() : lastClosestFuelPumpSeen.getLastVisited())) +
-                        Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), taskedStation.get(taskedIndex).getCoord());
+                        Calculation.diagonalDistance(Coordinates.getTankerCoordinate(), taskedStation.get(taskedIndex).getCoord());
 
                 l.d("Distance: " + dist);
                 if(!super.acceptableFuelLevel(100 - dist, dist)) {
@@ -129,7 +129,7 @@ public class Interceptor extends Mapper {
             lastClosestFuelPumpSeen = fuelPump;
             if(well == null && lastClosestWellSeen != null) {
                 int dist = Tanker.VIEW_RANGE + Math.toIntExact(timestep - lastClosestWellSeen.getLastVisited()) +
-                        Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), lastClosestFuelPumpSeen.getCoord());
+                        Calculation.diagonalDistance(Coordinates.getTankerCoordinate(), lastClosestFuelPumpSeen.getCoord());
                 if(!super.acceptableFuelLevel(100 - dist, dist)) {
                     lastClosestWellSeen = null;
                 }

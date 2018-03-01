@@ -1,8 +1,11 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.Point;
 
+/**
+ * Stores the entity in a node used for planning
+ */
 public class EntityNode extends CoreEntity {
     private int gscore;
     private int hscore;

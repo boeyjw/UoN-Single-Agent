@@ -1,9 +1,12 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.Point;
 import uk.ac.nott.cs.g53dia.library.Station;
 
+/**
+ * Stored essentially information retrieved by the agent for a particular cell
+ */
 public abstract class CoreEntity {
     private Cell entity;
     private int entityHash;

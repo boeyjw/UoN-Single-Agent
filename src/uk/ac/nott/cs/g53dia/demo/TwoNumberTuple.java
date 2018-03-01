@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 /**
  * Represent a 2-tuple of (int x, int y)

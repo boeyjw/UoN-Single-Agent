@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -45,13 +45,13 @@ public abstract class Mapper {
         if(desiredEntity.isEmpty())
             return Integer.MIN_VALUE;
         else if(desiredEntity.size() == 1)
-            return Calculation.modifiedManhattenDistance(current.getCoord(), desiredEntity.get(0).getCoord());
+            return Calculation.diagonalDistance(current.getCoord(), desiredEntity.get(0).getCoord());
 
         int min = 0;
         int argmin = 0;
         int[] dist = new int[desiredEntity.size()];
         for(int i = 0; i < desiredEntity.size(); i++) {
-            dist[i] = Calculation.modifiedManhattenDistance(current.getCoord(), desiredEntity.get(i).getCoord());
+            dist[i] = Calculation.diagonalDistance(current.getCoord(), desiredEntity.get(i).getCoord());
             if(i == 0)
                 min = dist[i];
             else if(dist[i] > min) {

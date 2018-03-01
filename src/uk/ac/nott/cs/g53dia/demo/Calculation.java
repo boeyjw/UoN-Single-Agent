@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import uk.ac.nott.cs.g53dia.library.MoveAction;
 
@@ -106,7 +106,7 @@ public class Calculation {
      * @param target The target coordinate
      * @return The distance between two coordinates
      */
-    public static int modifiedManhattenDistance(Coordinates source, Coordinates target) {
+    public static int diagonalDistance(Coordinates source, Coordinates target) {
         return Math.max(Math.abs(target.getValue(0) - source.getValue(0)), Math.abs(target.getValue(1) - source.getValue(1)));
     }
 

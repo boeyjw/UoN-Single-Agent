@@ -1,6 +1,5 @@
 package uk.ac.nott.cs.g53dia.demo;
 
-import uk.ac.nott.cs.g53dia.demo.boeyjw.*;
 import uk.ac.nott.cs.g53dia.library.*;
 
 import java.util.*;
@@ -26,7 +25,6 @@ public class DemoTanker extends Tanker {
     private Deque<EntityNode> plannedMoves;
     private Deque<Cell> history;
 
-    private Cell lastFuelPump, lastWell;
     private Explorer explorer;
     private Planner planner;
     private Interceptor interceptor;
@@ -51,9 +49,6 @@ public class DemoTanker extends Tanker {
         moves = new ArrayDeque<>();
         plannedMoves = new ArrayDeque<>();
         history = new ArrayDeque<>();
-
-        lastFuelPump = null;
-        lastWell = null;
 
         explorer = new Explorer(this.r);
         explorerDirection = explorer.getAndUpdateDirection();

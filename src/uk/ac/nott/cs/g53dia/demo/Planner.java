@@ -1,10 +1,13 @@
-package uk.ac.nott.cs.g53dia.demo.boeyjw;
+package uk.ac.nott.cs.g53dia.demo;
 
 import uk.ac.nott.cs.g53dia.library.Cell;
 import uk.ac.nott.cs.g53dia.library.Tanker;
 
 import java.util.*;
 
+/**
+ * Planning layer
+ */
 public class Planner extends Mapper {
     public static boolean NEED_FUEL = false;
     public static boolean NEED_WELL = false;
@@ -19,18 +22,26 @@ public class Planner extends Mapper {
         l = new Log(true);
     }
 
+    /**
+     * Main planning method using Djikstra. Pending enhancement to use A* instead
+     * @param entities Agent observable space
+     * @param currentFuelLevel Current agent fuel level
+     * @param currentWasteLevel Current agent waste level
+     * @param current Current agent position entity
+     * @return A queue of planned movements if planning succeeds, else an empty queue
+     */
     public Deque<EntityNode> plan(Hashtable<String, List<CoreEntity>> entities,
                                   int currentFuelLevel, int currentWasteLevel, EntityNode current) {
-        Deque<EntityNode> plannedMoves = new ArrayDeque<>();
+        Deque<EntityNode> plannedMoves = new ArrayDeque<>(); // Main queue
         int estFuelLevel = currentFuelLevel;
         int estWasteLevel = currentWasteLevel;
-        int stationVisitCounter = 0;
-        boolean hasPlan = false;
+        int stationVisitCounter = 0; // Track number of station visits in queue
+        boolean hasPlan = false; // Whether a plan is actually made
         String nextMove = "";
-        List<CoreEntity> taskedStations = entities.get("taskedStation");
-        boolean noFeasibleNodes = false;
+        List<CoreEntity> taskedStations = entities.get("taskedStation"); // Tasked stations gets removed after inserted into queue
+        boolean noFeasibleNodes = false; // If all entities are beyond the reach of the agent by estimated fuel level
 
-        current.setGscore(0);
+        current.setGscore(0); // Total distance traversed
         current.setFuelConsumption(0);
         plannedMoves.add(current);
 
@@ -64,7 +75,7 @@ public class Planner extends Mapper {
                     break;
                 }
                 else {
-                    System.out.println("Planning failed");
+//                    System.out.println("Planning failed");
                     NO_PATH_FOUND = true;
                     plannedMoves.clear();
                     break;
@@ -72,18 +83,21 @@ public class Planner extends Mapper {
             }
             else {
                 hasPlan = true;
+                // Calculate total distance from current plan point to next
                 List<EntityNode> gscored_nodes = calculateGscore(nextMove.equalsIgnoreCase("taskedStation") ?
                         taskedStations.iterator() : entities.get(nextMove).iterator(), current);
                 // Has fuel pumps in view and next move is not fuel pump
                 if(!nextMove.equalsIgnoreCase("fuel")) {
                     int argmin = Integer.MAX_VALUE;
+                    // Check if the move is feasible
                     if(!entities.get("fuel").isEmpty()) {
                         boolean[] feasibleNodes = getFeasibleNodes(gscored_nodes, entities.get("fuel"), estFuelLevel);
                         argmin = getArgminDistance(gscored_nodes, feasibleNodes);
                     }
-                    else {
+                    else { // Pass responsibility to Interceptor instead
                         argmin = getArgminDistance(gscored_nodes);
                     }
+                    // There is a feasible node
                     if(argmin != Integer.MAX_VALUE) {
                         if(nextMove.equalsIgnoreCase("taskedStation")) {
                             stationVisitCounter++;
@@ -116,9 +130,19 @@ public class Planner extends Mapper {
         return plannedMoves;
     }
 
+    /**
+     * Curates the current sequence of moves and ensure the goal is realistic
+     * @param move The next move
+     * @param entities Agent observable space
+     * @param t Agent object
+     * @param lastClosestFuelpumpSeen The last closest fuel pump seen
+     * @param timestep Current timestep
+     * @return True if permitted, false if it fails any rules within
+     */
     public boolean permitNextMove(Cell move, Hashtable<String, List<CoreEntity>> entities,
                                   Tanker t, CoreEntity lastClosestFuelpumpSeen, long timestep) {
         String entityType = "";
+        // A fuel pump is always a permitted move
         if(EntityChecker.isFuelPump(move)) {
             return true;
         }
@@ -136,25 +160,31 @@ public class Planner extends Mapper {
 //        }
 //        else if(identicalFuel != null && identicalMove == null) {
 //            return !super.acceptableFuelLevel(t.getFuelLevel() - Tanker.VIEW_RANGE,
-//                    Tanker.VIEW_RANGE + Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalFuel.getCoord()));
+//                    Tanker.VIEW_RANGE + Calculation.diagonalDistance(Coordinates.getTankerCoordinate(), identicalFuel.getCoord()));
 //        }
 //        else if(identicalFuel == null && identicalMove != null) {
-//            return !super.acceptableFuelLevel(t.getFuelLevel() - Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
-//                    Calculation.modifiedManhattenDistance(identicalMove.getCoord(), Coordinates.getTankerCoordinate()) + Tanker.VIEW_RANGE);
+//            return !super.acceptableFuelLevel(t.getFuelLevel() - Calculation.diagonalDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
+//                    Calculation.diagonalDistance(identicalMove.getCoord(), Coordinates.getTankerCoordinate()) + Tanker.VIEW_RANGE);
 //        }
 //        else {
-//            return !super.acceptableFuelLevel(t.getFuelLevel() - Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
-//                    Calculation.modifiedManhattenDistance(identicalMove.getCoord(), identicalFuel.getCoord()));
+//            return !super.acceptableFuelLevel(t.getFuelLevel() - Calculation.diagonalDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
+//                    Calculation.diagonalDistance(identicalMove.getCoord(), identicalFuel.getCoord()));
 //        }
         if(identicalFuel == null || identicalMove == null) {
             return true;
         }
         else {
-            return super.acceptableFuelLevel(t.getFuelLevel() - Calculation.modifiedManhattenDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
-                    Calculation.modifiedManhattenDistance(identicalMove.getCoord(), identicalFuel.getCoord()));
+            return super.acceptableFuelLevel(t.getFuelLevel() - Calculation.diagonalDistance(Coordinates.getTankerCoordinate(), identicalMove.getCoord()),
+                    Calculation.diagonalDistance(identicalMove.getCoord(), identicalFuel.getCoord()));
         }
     }
 
+    /**
+     * Transforms a move into an entity
+     * @param move Move to be transformed
+     * @param entities List of entities to be matched against, must be of identical class instance
+     * @return Move in {@link CoreEntity} or null if no matches
+     */
     private CoreEntity getIdentical(Cell move, List<CoreEntity> entities) {
         if(entities.isEmpty() || EntityChecker.getEntityType(move) != EntityChecker.getEntityType(entities.get(0).getEntity())) {
             return null;
@@ -224,7 +254,7 @@ public class Planner extends Mapper {
 
         while(entities.hasNext()) {
             EntityNode e = (EntityNode) entities.next();
-            int dist = Calculation.modifiedManhattenDistance(current.getCoord(), e.getCoord());
+            int dist = Calculation.diagonalDistance(current.getCoord(), e.getCoord());
             e.setGscore(current.getGscore() + dist);
             e.setFuelConsumption(dist);
             e.setParent(current);
