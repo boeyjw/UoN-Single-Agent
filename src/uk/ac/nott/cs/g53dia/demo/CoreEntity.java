@@ -15,6 +15,7 @@ public abstract class CoreEntity {
     private boolean hasTask;
     private Point position;
     private int bearing;
+    private int wasteRemaining;
 
     CoreEntity(Cell entity, Coordinates coord, long firstVisit, Point position) {
         this.entity = entity;
@@ -24,6 +25,7 @@ public abstract class CoreEntity {
         this.hasTask = EntityChecker.isStation(entity) && ((Station) entity).getTask() != null;
         this.position = position;
         this.bearing = Integer.MIN_VALUE;
+        this.wasteRemaining = this.hasTask ? ((Station) entity).getTask().getWasteRemaining() : Integer.MIN_VALUE;
     }
 
     CoreEntity(Cell entity, int x, int y, long firstVisit) {

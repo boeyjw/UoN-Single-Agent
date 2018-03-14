@@ -52,6 +52,10 @@ public class EntityChecker {
         return isStation(station) && ((Station) station).getTask() != null;
     }
 
+    public static boolean hasWasteStation(Cell station) {
+        return hasTaskStation(station) && ((Station) station).getTask().getWasteRemaining() > 0;
+    }
+
     /**
      * Converts entity cell into a string representation
      * @param entity The cell to be stringified, pass null if using the int constants to represent
